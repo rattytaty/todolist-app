@@ -1,0 +1,33 @@
+.App {
+  padding: 30px;
+  display: flex;
+}
+
+.App > div {
+  margin-right: 50px;
+}
+
+.doneTask {
+  color: #4a8c2a;
+  font-weight: revert;
+
+}
+.notDoneTask {
+  color:mediumvioletred;
+  font-weight: bold;
+}
+
+.inputError {
+
+  border-color: mediumvioletred;
+}
+
+.activeBtn {
+  background-color: #4a8c2a;
+}
+.notActiveBtn {
+  background-color: mediumvioletred;
+}
+.errorMessage {
+  color: mediumvioletred;
+}
