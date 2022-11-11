@@ -13,21 +13,21 @@
 
 }
 .notDoneTask {
-  color:mediumvioletred;
+  color:palevioletred;
   font-weight: bold;
 }
 
 .inputError {
 
-  border-color: mediumvioletred;
+  border-color: palevioletred;
 }
 
 .activeBtn {
-  background-color: #4a8c2a;
+  background-color: #cfb429;
 }
 .notActiveBtn {
-  background-color: mediumvioletred;
+  background-color: #c8c7c7;
 }
 .errorMessage {
-  color: mediumvioletred;
+  color: palevioletred;
 }
