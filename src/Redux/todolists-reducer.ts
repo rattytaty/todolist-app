@@ -26,11 +26,11 @@ export const DeleteTodoAC =(todolistId: string):DeleteTodoAction =>({type:"DELET
 export const AddTodoAC =(newTodoTitle: string):AddTodoAction =>({type:"ADD-TODO", newTodoTitle:newTodoTitle, newTodoId:v1()})
 export const ChangeTodoFilterAC =(filterValue: FilterValuesType,
 todolistId: string):ChangeTodoFilterAction =>({type:"CHANGE-TODO-FILTER", filterValue:filterValue, todolistId:todolistId})
-export const ChangeTodoNameAC =(todolistId: string,
-newTodoTitle:string):ChangeTodoNameAction =>({type:"CHANGE-TODO-TITLE", newTodoTitle:newTodoTitle, todolistId:todolistId})
+export const ChangeTodoTitleAC =(todolistId: string, newTodoTitle:string):ChangeTodoNameAction =>({type:"CHANGE-TODO-TITLE", newTodoTitle:newTodoTitle, todolistId:todolistId})
 
+const initialState:Array<TodolistInfo> = []
 
-export const todolistsReducer = (todolistInfo:Array<TodolistInfo>, action:Actions):Array<TodolistInfo> => {
+export const todolistsReducer = (todolistInfo:Array<TodolistInfo> = initialState, action:Actions):Array<TodolistInfo> => {
     switch (action.type) {
         case "DELETE-TODO":
             return todolistInfo.filter((todolist) => todolist.id !== action.todolistId)

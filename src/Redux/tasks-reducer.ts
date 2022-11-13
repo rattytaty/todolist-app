@@ -1,4 +1,4 @@
-import {todolistTasksArr} from "../App";
+import {TasksArrays} from "../App";
 import {TaskType} from "../Todolist";
 import {v1} from "uuid";
 import {AddTodoAction, DeleteTodoAction} from "./todolists-reducer";
@@ -31,8 +31,9 @@ export const changeTaskTitleAC = (newTaskTitle: string, taskId: string, todolist
     return {type: "CHANGE-TITLE", newTaskTitle, taskId, todolistId} as const
 }
 
+const initialState : TasksArrays = {}
 
-export const tasksReducer = (state: todolistTasksArr, action: Actions): todolistTasksArr => {
+export const tasksReducer = (state: TasksArrays = initialState, action: Actions): TasksArrays => {
     switch (action.type) {
         case "DELETE-TASK":
             return {...state, [action.todolistId]: state[action.todolistId].filter(sTask => sTask.id !== action.taskId)}

@@ -1,9 +1,9 @@
-import {TodolistInfo, todolistTasksArr} from "../App";
+import {TodolistInfo, TasksArrays} from "../App";
 import {AddTodoAC, DeleteTodoAC, todolistsReducer} from "./todolists-reducer";
 import {tasksReducer} from "./tasks-reducer";
 
 test("ids should be equals", ()=>{
-    const startTasksState: todolistTasksArr = {}
+    const startTasksState: TasksArrays = {}
     const startTodoState: Array<TodolistInfo> = []
 
     const action = AddTodoAC("New Todo")
@@ -21,7 +21,7 @@ test("ids should be equals", ()=>{
 })
 
 test("property with todolistId should be deleted", ()=>{
-    const startState: todolistTasksArr = {
+    const startState: TasksArrays = {
         "TodolistId1": [
             {id: "1", title: "Grid", isDone: false},
             {id: "2", title: "JS", isDone: false},
