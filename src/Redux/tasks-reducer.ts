@@ -1,7 +1,8 @@
 import {TasksArrays} from "../App";
-import {TaskType} from "../Todolist";
+
 import {v1} from "uuid";
 import {AddTodoAction, DeleteTodoAction} from "./todolists-reducer";
+import {TaskStatuses, TaskType} from "../api/tasks-api";
 
 export type  deleteTaskAction = ReturnType<typeof deleteTaskAC>
 export type addTaskAction = ReturnType<typeof addTaskAC>
@@ -23,8 +24,8 @@ export const deleteTaskAC = (taskId: string, todolistId: string,) => {
 export const addTaskAC = (newTaskName: string, todolistId: string) => {
     return {type: "ADD-TASK", newTaskName, todolistId} as const
 }
-export const changeDoneStatusAC = (isDone: boolean, taskId: string, todolistId: string) => {
-    return {type: "CHANGE-DONE", isDone, taskId, todolistId} as const
+export const changeDoneStatusAC = (status:TaskStatuses, taskId: string, todolistId: string) => {
+    return {type: "CHANGE-DONE", status, taskId, todolistId} as const
 }
 
 export const changeTaskTitleAC = (newTaskTitle: string, taskId: string, todolistId: string) => {
@@ -41,15 +42,21 @@ export const tasksReducer = (state: TasksArrays = initialState, action: Actions)
             const newTask: TaskType = {
                 id: v1(),
                 title: action.newTaskName,
-                isDone: false
+                description:"Add description.",
+                todoListId:action.todolistId,
+                order:0,
+                status:0,
+                priority:1,
+                startDate:"",
+                deadline:"",
+                addedDate:""
             }
             return {...state, [action.todolistId]: [newTask, ...state[action.todolistId]]}
         case "CHANGE-DONE":
             return {
                 ...state,
                 [action.todolistId]: state[action.todolistId].map(sTask => sTask.id === action.taskId ? {
-                    ...sTask,
-                    isDone: action.isDone
+                    ...sTask, status:action.status
                 } : sTask)
             }
         case "CHANGE-TITLE":
@@ -62,7 +69,6 @@ export const tasksReducer = (state: TasksArrays = initialState, action: Actions)
             }
         case "ADD-TODO":
             return {...state, [action.newTodoId]: []}
-
         case "DELETE-TODO":
 
             const copyState = {...state}

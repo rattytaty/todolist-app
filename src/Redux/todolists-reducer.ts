@@ -1,5 +1,6 @@
-import {FilterValuesType, TodolistInfo} from "../App";
+import {FilterValuesType} from "../App";
 import {v1} from "uuid";
+import {TodolistMainType} from "../api/todolists-api";
 
 export type DeleteTodoAction = {
     type:"DELETE-TODO"
@@ -28,14 +29,14 @@ export const ChangeTodoFilterAC =(filterValue: FilterValuesType,
 todolistId: string):ChangeTodoFilterAction =>({type:"CHANGE-TODO-FILTER", filterValue:filterValue, todolistId:todolistId})
 export const ChangeTodoTitleAC =(todolistId: string, newTodoTitle:string):ChangeTodoNameAction =>({type:"CHANGE-TODO-TITLE", newTodoTitle:newTodoTitle, todolistId:todolistId})
 
-const initialState:Array<TodolistInfo> = []
+const initialState:Array<TodolistMainType> = []
 
-export const todolistsReducer = (todolistInfo:Array<TodolistInfo> = initialState, action:Actions):Array<TodolistInfo> => {
+export const todolistsReducer = (todolistInfo:Array<TodolistMainType> = initialState, action:Actions):Array<TodolistMainType> => {
     switch (action.type) {
         case "DELETE-TODO":
             return todolistInfo.filter((todolist) => todolist.id !== action.todolistId)
         case "ADD-TODO":
-            const newTodo: TodolistInfo = {id: action.newTodoId, title: action.newTodoTitle, filter: "All"}
+            const newTodo: TodolistMainType = {id: action.newTodoId, title: action.newTodoTitle, filter: "All", addedDate:"", order:0}
             return[...todolistInfo, newTodo]
         case "CHANGE-TODO-FILTER":
             return todolistInfo.map((tl) => tl.id === action.todolistId ? {...tl, filter: action.filterValue} : tl)
