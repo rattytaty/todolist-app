@@ -5,15 +5,17 @@ type EditableSpanProps ={
     editTitle:(changedTitle:string)=>void
 }
 
-export const EditableSpan = (props:EditableSpanProps) => {
+export const EditableSpan = React.memo((props:EditableSpanProps) => {
+
     const [editMode, setEditMode] = useState<boolean>(false)
     const [title, setTitle] = useState<string>(props.title)
     const onEditMode = () => {
         setEditMode(true)
     }
     const offEditMode = () => {
-        setEditMode(false)
+
         props.editTitle(title)
+        setEditMode(false)
     }
     const inputOnChange = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.currentTarget.value)
@@ -25,4 +27,4 @@ export const EditableSpan = (props:EditableSpanProps) => {
             ? <input autoFocus onBlur={offEditMode} value={title} onChange={inputOnChange}/>
             :<span onDoubleClick={onEditMode}>{title}</span>
     );
-};
+});

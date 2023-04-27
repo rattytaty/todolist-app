@@ -1,53 +1,54 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
-import {TaskType, Todolist} from "./Todolist";
-import {AddItemForm} from "./AddItemForm";
-import {AddTodoAC} from "./Redux/todolists-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "./Redux/Store";
+import {useAppDispatch, useAppSelector} from "./Redux/Store";
+import {CircularProgress, LinearProgress} from "@mui/material";
+import {ErrorSnackbar} from "./cumPonents/ErrorSnackBar";
+import {Navigate, Route, Routes} from 'react-router-dom';
+import {Login} from "./cumPonents/login/Login";
+import {TodolistsPage} from "./cumPonents/TodolistsPage";
+import {initializeAppTC} from "./Redux/app-reducer";
+import {logOutTC} from "./Redux/auth-reducer";
 
 
-export type FilterValuesType = "All" | "Completed" | "Active"
-export type TodolistInfo = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
-export type TasksArrays = {
-    [todolistId: string]: Array<TaskType>
-}
+export function App() {
+    const appLoadingStatus = useAppSelector((state) => state.app.loadingStatus)
+    const isInitialized = useAppSelector((state)=>state.app.isInitialized)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
+    const dispatch = useAppDispatch()
+    useEffect(()=>{
+        dispatch(initializeAppTC())
 
-function App() {
+    },[])
 
-
-    let todolistInfo = useSelector<AppRootState, Array<TodolistInfo>>(state => state.todolistInfo)
-    const dispatch = useDispatch()
-
-    function addTodolist(newTodoTitle: string) {
-        dispatch(AddTodoAC(newTodoTitle))
+    const logOutHandler = ()=>{
+dispatch(logOutTC())
     }
 
+    if (!isInitialized) {
+        return <CircularProgress/>
+    }
 
-    const todolistsForRendering = todolistInfo.length
-        ? todolistInfo.map((todolist) => {
+    return (<div className="App">
+        {isLoggedIn && <button onClick={logOutHandler}>LogOut</button>}
+        {appLoadingStatus === "loading" && <LinearProgress/>}
+        <Routes>
+            <Route path={'/404'} element={<h1>404: Page not found</h1>}/>
+            <Route path={"*"} element={<Navigate to={'/404'}/>}/>
+            <Route path={"/login"} element={<Login/>}/>
+            <Route path={"/todolist-app"} element={<Navigate to={"/"}/>}/>
+            <Route path={"/"} element={<TodolistsPage/>}/>
+        </Routes>
 
-            return (
-                <Todolist key={todolist.id}
-                          title={todolist.title}
-                          todoId={todolist.id}
-                          filter={todolist.filter}
-                />
-            )
-        })
-        : <b>No todolists :`(</b>
 
-    return (
-        <div className="App">
-            <AddItemForm addItem={addTodolist}/>
-            {todolistsForRendering}
-        </div>
-    );
+
+        <ErrorSnackbar/>
+
+    </div>);
 }
 
-export default App;
+
+
+
+
+

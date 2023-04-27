@@ -1,6 +1,7 @@
 .App {
-  padding: 30px;
+  padding: 10px;
   display: flex;
+  flex-direction: column;
 }
 
 .App > div {
@@ -10,7 +11,6 @@
 .doneTask {
   color: #4a8c2a;
   font-weight: revert;
-
 }
 .notDoneTask {
   color:palevioletred;
