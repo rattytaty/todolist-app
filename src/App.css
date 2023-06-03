@@ -1,33 +1,8 @@
-.App {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-}
-
-.App > div {
-  margin-right: 50px;
-}
-
 .doneTask {
-  color: #4a8c2a;
-  font-weight: revert;
+    color: #4a8c2a;
+    font-weight: bold;
 }
 .notDoneTask {
-  color:palevioletred;
-  font-weight: bold;
-}
-
-.inputError {
-
-  border-color: palevioletred;
-}
-
-.activeBtn {
-  background-color: #cfb429;
-}
-.notActiveBtn {
-  background-color: #c8c7c7;
-}
-.errorMessage {
-  color: palevioletred;
+    color:#333333;
+    font-weight: bold;
 }

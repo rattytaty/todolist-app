@@ -1,4 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useRef, useState} from 'react';
+import {IconButton, TextField} from "@mui/material";
+import {AddBox} from "@mui/icons-material";
 
 type AddItemFormProps={
     addItem:(itemTitle:string)=>void
@@ -10,7 +12,6 @@ export const AddItemForm = React.memo((props:AddItemFormProps) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [error, setError] = useState<boolean>(false)
     const addNewTask = () => {
-
         const noSpaceTaskName = newTaskName.trim()
         if (noSpaceTaskName !== "") {
             props.addItem(noSpaceTaskName)
@@ -26,26 +27,28 @@ export const AddItemForm = React.memo((props:AddItemFormProps) => {
     }
     const [newTaskName, setNewTaskName] = useState<string>("")
     const inputEnterPress = (event: KeyboardEvent<HTMLInputElement>) => event.key === "Enter" && addNewTask()
-    const errorMessage = error ? <div className={"errorMessage"}> Title is required </div> : null
     const onBlurHandler = () =>{
         error && setError(false)
     }
 
-    return (
-        <div>
-            <input
-                className={ error ?"inputError" : ""}
-                value={newTaskName}
-                onChange={inputOnChange}
-                onKeyDown={inputEnterPress}
-                onBlur={onBlurHandler}
-                ref={inputRef}
-                disabled={props.disabled}
-            />
-
-            <button onClick={addNewTask} disabled={props.disabled}>+</button>
-            {errorMessage}
+    return <div>
+            <TextField variant="outlined"
+                       disabled={false}
+                       error={!!error}
+                       value={newTaskName}
+                       onChange={inputOnChange}
+                       onKeyDown={inputEnterPress}
+                       helperText={error}
+                       ref={inputRef}
+                       size={"small"}
+                       onBlur={onBlurHandler}
+                       placeholder={error?"Title is required":"Title"}/>
+            <IconButton color="primary"
+                        onClick={addNewTask}
+                        disabled={props.disabled}>
+                <AddBox />
+            </IconButton>
         </div>
-    );
+
 });
 
