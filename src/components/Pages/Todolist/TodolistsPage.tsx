@@ -38,12 +38,10 @@ export const TodolistsPage: React.FC = () => {
             return <Grid item key={todolist.id}>
                 <Paper style={{padding: '10px'}}>
             <Todolist
-
                 title={todolist.title}
                 todolistId={todolist.id}
                 filter={todolist.filter}
                 entityStatus={todolist.entityStatus}
-
                />
                 </Paper>
             </Grid>})}

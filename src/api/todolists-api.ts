@@ -1,7 +1,8 @@
 import axios from "axios";
-import {FilterValuesType} from "../Redux/todolists-reducer";
-import {RequestStatusType} from "../Redux/app-reducer";
+
 import {ResponseType} from "./tasks-api";
+import {FilterValuesType} from "../Store/Reducers/todolists-reducer";
+import {RequestStatusType} from "../Store/Reducers/app-reducer";
 
 
 export const instance = axios.create({

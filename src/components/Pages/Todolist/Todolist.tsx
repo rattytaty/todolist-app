@@ -52,7 +52,7 @@ export const Todolist: React.FC<TodolistProps> = React.memo(({title, filter, ent
     const taskListItem = (Task: TaskType) => {
         return <SingleTask Task={Task}
                            todolistId={todolistId}
-                           key={Task.taskId}/>
+                           key={Task.id}/>
     }
 
     /*const tasksForTodolist =

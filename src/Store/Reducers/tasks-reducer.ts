@@ -63,7 +63,7 @@ export const createTaskTC = (todolistId: string, taskTitle: string) => (dispatch
 export const updateTaskTC = (todolistId: string, taskId: string, taskOption: TaskOptionsForUpdate) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
 
     dispatch(setLoadingStatusAC({loadingStatus: "loading"}))
-    const taskForUpdate = getState().tasks[todolistId].find(Task => Task.taskId === taskId)
+    const taskForUpdate = getState().tasks[todolistId].find(Task => Task.id === taskId)
     if (!taskForUpdate) {
         console.warn("task not found")
         return
@@ -100,7 +100,7 @@ const slice = createSlice({
     reducers: {
         deleteTaskAC(state, action: PayloadAction<{ taskId: string, todolistId: string }>) {
             const tasks = state[action.payload.todolistId]
-            const index = tasks.findIndex(task => task.taskId === action.payload.taskId)
+            const index = tasks.findIndex(task => task.id === action.payload.taskId)
             if (index > -1) {
                 tasks.splice(index, 1)
             }
@@ -113,7 +113,7 @@ const slice = createSlice({
         },
         updateTaskAC(state, action: PayloadAction<{ taskOptions: TaskTypeForUpdate, taskId: string, todolistId: string }>) {
             const tasks = state[action.payload.todolistId]
-            const index = tasks.findIndex(task => task.taskId === action.payload.taskId)
+            const index = tasks.findIndex(task => task.id === action.payload.taskId)
             if (index > -1) {
                 tasks[index] = {...tasks[index], ...action.payload.taskOptions}
             }

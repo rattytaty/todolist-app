@@ -18,19 +18,19 @@ export const SingleTask:React.FC<SingleTaskProps> = React.memo(({Task, todolistI
 
 
     const changeTaskStatus = (event: ChangeEvent<HTMLInputElement>) => {
-        dispatch(updateTaskTC(todolistId, Task.taskId, {status:event.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New}))
+        dispatch(updateTaskTC(todolistId, Task.id, {status:event.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New}))
     }
 
     const changeTaskTitle = (title: string) => {
-        dispatch(updateTaskTC(todolistId, Task.taskId, {title}))
+        dispatch(updateTaskTC(todolistId, Task.id, {title}))
     }
 
     const deleteTask =() => {
-        dispatch(deleteTaskTC(todolistId, Task.taskId))
+        dispatch(deleteTaskTC(todolistId, Task.id))
     }
 
 
-    return <div key={Task.taskId}
+    return <div key={Task.id}
                 className={Task.status === TaskStatuses.Completed
                     ? 'doneTask'
                     : 'notDoneTask'}>
