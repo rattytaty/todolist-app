@@ -18,14 +18,14 @@ export  enum TasksPriorities {
 export type TaskType = {
     id:string,
     title:string,
-    description:string,
+        description:string,
     todoListId:string,
     order:number,
     status:TaskStatuses,
-    priority:TasksPriorities,
-    startDate:string,
-    deadline:string,
-    addedDate:string
+        priority:TasksPriorities,
+        startDate:string,
+        deadline:string,
+        addedDate:string
 }
 
 type GetTasksResponse = {

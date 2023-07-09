@@ -4,29 +4,31 @@ import {EditableSpan} from "../../EditableSpan";
 
 import {TaskStatuses, TaskType} from "../../../api/tasks-api";
 
-import {SingleTask} from "./SingleTask";
-import {FormControl, IconButton, InputLabel, MenuItem, Select, Typography} from "@mui/material";
+import {IconButton, Typography} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {RequestStatusType} from "../../../Store/Reducers/app-reducer";
-import {
-    ChangeTodoFilterAC,
-    ChangeTodoTitleTC,
-    deleteTodoTC,
-    FilterValuesType
-} from "../../../Store/Reducers/todolists-reducer";
+import {ChangeTodoTitleTC, deleteTodoTC, FilterValuesType} from "../../../Store/Reducers/todolists-reducer";
 import {useAppDispatch, useAppSelector} from "../../../Store/Store";
 import {createTaskTC, getTasksTC,} from "../../../Store/Reducers/tasks-reducer";
+
+import {SelectFilter} from "./SelectFilter";
+import {Task} from "./Task";
 
 type TodolistProps = {
     title: string
     filter: FilterValuesType
     entityStatus: RequestStatusType
     todolistId: string
-
 }
 
 
-export const Todolist: React.FC<TodolistProps> = React.memo(({title, filter, entityStatus, todolistId}) => {
+export const Todolist: React.FC<TodolistProps> = React.memo(({
+                                                                 title,
+                                                                 filter,
+                                                                 entityStatus,
+                                                                 todolistId,
+                                                                 ...restProps
+                                                             }) => {
 
     const dispatch = useAppDispatch()
     const tasks = useAppSelector(state => state.tasks[todolistId])
@@ -34,44 +36,30 @@ export const Todolist: React.FC<TodolistProps> = React.memo(({title, filter, ent
         dispatch(getTasksTC(todolistId))
     }, [todolistId, dispatch])
 
-
     const changeTodoTitle = useCallback((newTodoTitle: string) => {
         dispatch(ChangeTodoTitleTC(newTodoTitle, todolistId))
     }, [dispatch, todolistId]);
     const addTask = useCallback((newTaskName: string) => {
         dispatch(createTaskTC(todolistId, newTaskName))
-    }, [dispatch,todolistId]);
-
+    }, [dispatch, todolistId]);
     const deleteTodolist = () => {
         dispatch(deleteTodoTC(todolistId))
     }
-    const changeTodoFilter = (filterValue: FilterValuesType) => {
-        dispatch(ChangeTodoFilterAC({filterValue, todolistId}))
+    const taskListItem = (task: TaskType) => {
+        return <Task task={task}
+                     todolistId={todolistId}
+                     key={task.id}/>
     }
 
-    const taskListItem = (Task: TaskType) => {
-        return <SingleTask Task={Task}
-                           todolistId={todolistId}
-                           key={Task.id}/>
-    }
-
-    /*const tasksForTodolist =
-        tasks && tasks.filter(({completed}) => {
-            if (props.filter === "Active") return completed === false;
-            else if (props.filter === "Completed") return completed === true;
+    const tasksForTodolist =
+        tasks && tasks.filter(({status}) => {
+            if (filter === "New") return status === TaskStatuses.New;
+            else if (filter === "Completed") return status === TaskStatuses.Completed;
+            else if (filter === "In progress") return status === TaskStatuses.InProgress;
+            else if (filter === "Draft") return status === TaskStatuses.Draft;
             return true;
-        })*/
-
-
-    let tasksForTodolist: Array<TaskType> = tasks
-    if (filter === "In progress") {
-        tasksForTodolist = tasks.filter((Task) => Task.status === TaskStatuses.New)
-    }
-    if (filter === "Completed") {
-        tasksForTodolist = tasks.filter((Task) => Task.status === TaskStatuses.Completed)
-    }
-
-    const taskList = tasksForTodolist && tasksForTodolist.length ? tasksForTodolist.map(taskListItem) : "Todolist is empty :("
+        })
+    const tasksList = tasksForTodolist && tasksForTodolist.length ? tasksForTodolist.map(taskListItem) : "Todolist is empty :("
 
 
     return <div>
@@ -86,26 +74,8 @@ export const Todolist: React.FC<TodolistProps> = React.memo(({title, filter, ent
         </Typography>
         <AddItemForm addItem={addTask}
                      disabled={entityStatus === 'loading'}/>
-        {taskList}
-        <div style={{paddingTop: '10px'}}>
-            <FormControl color={"primary"}
-                         variant="filled"
-                         fullWidth>
-                <InputLabel id="demo-simple-select-filled-label">Sort Tasks:
-                </InputLabel>
-                <Select
-                    labelId="demo-simple-select-filled-label"
-                    id="demo-simple-select-filled"
-                    value={filter}
-                    onChange={() => changeTodoFilter}>
-                    <MenuItem value={"All"}>All</MenuItem>
-                    <MenuItem value={"New"}>New</MenuItem>
-                    <MenuItem value={"Draft"}>Draft</MenuItem>
-                    <MenuItem value={"Completed"}>Completed</MenuItem>
-                    <MenuItem value={"In progress"}>In progress</MenuItem>
-                </Select>
-            </FormControl>
-        </div>
+        {tasksList}
+        <SelectFilter todolistId={todolistId} filter={filter}/>
     </div>
 })
 
