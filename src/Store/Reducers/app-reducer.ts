@@ -5,8 +5,6 @@ import {handleServerAppError, handleServerNetworkError} from "../utils/error-uti
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
-export type setStatusACType = ReturnType<typeof setLoadingStatusAC>
-export type setErrorACType = ReturnType<typeof setErrorAC>
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     authApi.me().then(res => {

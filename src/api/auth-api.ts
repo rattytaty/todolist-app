@@ -11,7 +11,6 @@ export type meResponse = {
     id:number
     email:string
     login:string
-
 }
 
 export const authApi = {
