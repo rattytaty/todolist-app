@@ -27,7 +27,7 @@ const [editMode, setEditMode] = useState<boolean>(false)
     const deleteTask =() => {
         dispatch(deleteTaskTC(todolistId, task.id))
     }
-    console.log(task)
+    
 
     return <div key={task.id}
                 className={task.status === TaskStatuses.Completed

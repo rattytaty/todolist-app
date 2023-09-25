@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-
-import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
-
-import {BrowserRouter} from "react-router-dom";
-import {App} from "./App";
+import {RouterProvider} from "react-router-dom";
 import {store} from "./Store/Store";
+import {CircularProgress} from "@mui/material";
+import {router} from "./router";
+
 
 
 const root = ReactDOM.createRoot(
@@ -15,12 +14,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <Provider store={store}>
-        <BrowserRouter>
-
-            <App/>
-        </BrowserRouter>
+        <RouterProvider router={router}
+                        fallbackElement={<CircularProgress/>}/>
     </Provider>
 );
-
-
-reportWebVitals();

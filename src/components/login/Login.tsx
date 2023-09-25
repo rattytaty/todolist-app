@@ -1,9 +1,20 @@
 import Grid from "@mui/material/Grid"
-import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField} from "@mui/material";
+import {
+    Button,
+    Checkbox,
+    CircularProgress,
+    FormControl,
+    FormControlLabel,
+    FormGroup,
+    FormLabel,
+    TextField
+} from "@mui/material";
 import {useFormik} from "formik";
-import {Navigate} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../Store/Store";
 import {logInTC} from "../../Store/Reducers/auth-reducer";
+import React, {useEffect} from "react";
+import {initializeAppTC} from "../../Store/Reducers/app-reducer";
 
 type FormikErrorType = {
     email?: string
@@ -39,28 +50,32 @@ export const Login = () => {
         },
     })
 
+    const isInitialized = useAppSelector((state)=>state.app.isInitialized)
+
+    useEffect(()=>{
+        dispatch(initializeAppTC())
+    },[dispatch])
+    if (!isInitialized) {
+        return <CircularProgress/>
+    }
+
     if (isLoggedIn) {
         return <Navigate to={"/"}/>
     }
 
-    return (
-    <Grid container justifyContent={"flex-end"}>
-        <Grid item xs={4}>
+
+    return <Grid container justifyContent={"flex-end"}>
+        <Grid container
+              justifyContent="center"
+              alignItems="center">
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
                     <FormLabel>
-                        <p>
-                            To log in get registered <a href={'https://social-network.samuraijs.com/'}
-                                                        target={'_blank'}>here</a>
-                        </p>
-                        <p>
-                            or use common test account credentials:
-                        </p>
-                        <p> Email: free@samuraijs.com
-                        </p>
-                        <p>
-                            Password: free
-                        </p>
+                        <p> To log in sign up <NavLink to={'https://social-network.samuraijs.com/signUp'}
+                                                       target={'_blank'}>here</NavLink>.</p>
+                        <p>Or use this account:</p>
+                        <p>Email: free@samuraijs.com</p>
+                        <p>Password: free</p>
                     </FormLabel>
                     <FormGroup>
                         <TextField
@@ -89,4 +104,4 @@ export const Login = () => {
             </form>
         </Grid>
     </Grid>
-    )}
+}

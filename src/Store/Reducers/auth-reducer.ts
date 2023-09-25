@@ -4,7 +4,6 @@ import {setLoadingStatusAC} from "./app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-
 //THUNKS
 export const logInTC = (data: loginData) => (dispatch: Dispatch) => {
     dispatch(setLoadingStatusAC({loadingStatus:"loading"}))
@@ -20,7 +19,6 @@ export const logInTC = (data: loginData) => (dispatch: Dispatch) => {
         .catch(error => {
             handleServerNetworkError(error, dispatch)
         })
-
 }
 export const logOutTC = () => (dispatch: Dispatch) => {
     dispatch(setLoadingStatusAC({loadingStatus:"loading"}))
@@ -37,7 +35,6 @@ export const logOutTC = () => (dispatch: Dispatch) => {
             handleServerNetworkError(error, dispatch)
         })
 }
-
 
 const slice = createSlice({
     name: "auth",
