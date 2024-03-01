@@ -61,13 +61,12 @@ export const Todolist: React.FC<TodolistProps> = React.memo(({
         })
     const tasksList = tasksForTodolist && tasksForTodolist.length ? tasksForTodolist.map(taskListItem) : "Todolist is empty :("
 
-
     return <div>
         <Typography variant={"h5"}
                     align={"center"}>
             <EditableSpan editTitle={changeTodoTitle}
                           title={title}/>
-            <IconButton onClick={deleteTodolist}
+            <IconButton  onClick={deleteTodolist}
                         disabled={entityStatus === 'loading'}>
                 <Delete/>
             </IconButton>

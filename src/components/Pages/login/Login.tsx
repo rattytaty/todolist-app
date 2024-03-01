@@ -69,14 +69,8 @@ export const Login = () => {
               justifyContent="center"
               alignItems="center">
             <form onSubmit={formik.handleSubmit}>
-                <FormControl>
-                    <FormLabel>
-                        <p> To log in sign up <NavLink to={'https://social-network.samuraijs.com/signUp'}
-                                                       target={'_blank'}>here</NavLink>.</p>
-                        <p>Or use this account:</p>
-                        <p>Email: free@samuraijs.com</p>
-                        <p>Password: free</p>
-                    </FormLabel>
+
+                <FormControl >
                     <FormGroup>
                         <TextField
                             label="Email"
@@ -100,6 +94,13 @@ export const Login = () => {
                         />
                         <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
                     </FormGroup>
+                    <FormLabel>
+                        <p> To log in sign up <NavLink to={'https://social-network.samuraijs.com/signUp'}
+                                                       target={'_blank'}>here</NavLink>.</p>
+                        <p>Or use this free account:</p>
+                        <p>Email: free@samuraijs.com</p>
+                        <p>Password: free</p>
+                    </FormLabel>
                 </FormControl>
             </form>
         </Grid>

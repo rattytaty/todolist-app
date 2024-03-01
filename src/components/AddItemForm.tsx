@@ -12,20 +12,20 @@ export const AddItemForm = React.memo((props:AddItemFormProps) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [error, setError] = useState<boolean>(false)
     const addNewTask = () => {
-        const noSpaceTaskName = newTaskName.trim()
+        const noSpaceTaskName = newItemName.trim()
         if (noSpaceTaskName !== "") {
             props.addItem(noSpaceTaskName)
         } else {const iEl = inputRef.current as HTMLInputElement
             iEl.focus()
             !error && setError(true)
         }
-        setNewTaskName("")
+        setNewItemName("")
     }
     const inputOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setNewTaskName(event.currentTarget.value)
+        setNewItemName(event.currentTarget.value)
         error && setError(false)
     }
-    const [newTaskName, setNewTaskName] = useState<string>("")
+    const [newItemName, setNewItemName] = useState<string>("")
     const inputEnterPress = (event: KeyboardEvent<HTMLInputElement>) => event.key === "Enter" && addNewTask()
     const onBlurHandler = () =>{
         error && setError(false)
@@ -35,7 +35,7 @@ export const AddItemForm = React.memo((props:AddItemFormProps) => {
             <TextField variant="outlined"
                        disabled={false}
                        error={!!error}
-                       value={newTaskName}
+                       value={newItemName}
                        onChange={inputOnChange}
                        onKeyDown={inputEnterPress}
                        helperText={error}
