@@ -1,16 +1,13 @@
 import React, {useCallback, useEffect} from "react";
 import {AddItemForm} from "../../AddItemForm";
 import {EditableSpan} from "../../EditableSpan";
-
 import {TaskStatuses, TaskType} from "../../../api/tasks-api";
-
 import {IconButton, Typography} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {RequestStatusType} from "../../../Store/Reducers/app-reducer";
 import {ChangeTodoTitleTC, deleteTodoTC, FilterValuesType} from "../../../Store/Reducers/todolists-reducer";
 import {useAppDispatch, useAppSelector} from "../../../Store/Store";
 import {createTaskTC, getTasksTC,} from "../../../Store/Reducers/tasks-reducer";
-
 import {SelectFilter} from "./SelectFilter";
 import {Task} from "./Task";
 
@@ -20,7 +17,6 @@ type TodolistProps = {
     entityStatus: RequestStatusType
     todolistId: string
 }
-
 
 export const Todolist: React.FC<TodolistProps> = React.memo(({
                                                                  title,

@@ -1,6 +1,6 @@
 import React from "react";
 import {ErrorPage} from "./components/Pages/ErrorPage";
-import {Layout} from "./components/Pages/Layout";
+import {Layout} from "./components/appLayout/Layout";
 import {createBrowserRouter} from "react-router-dom";
 import {TodolistsPage} from "./components/Pages/Todolist/TodolistsPage";
 import {Login} from "./components/Pages/login/Login";
