@@ -1,9 +1,8 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
 import {TodolistMainType} from "../../../api/todolists-api";
 import {AddItemForm} from "../../AddItemForm";
 import {Todolist} from "./Todolist";
-import {Grid, Paper} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../Store/Store";
 import {CreateTodoTC, getTodosThunkTC} from "../../../Store/Reducers/todolists-reducer";
 
@@ -22,25 +21,20 @@ export const TodolistsPage: React.FC = () => {
         dispatch(CreateTodoTC(newTodoTitle))
     }, [dispatch])
 
+    const [filterValue, setFilterValue] = useState()
+    const [sortValue, setSortValue] = useState()
+
 
     return <>
-        <Grid container
-              style={{padding: '20px'}}>
-            <AddItemForm addItem={addTodolist}/>
-        </Grid>
-        <Grid container
-              spacing={3}>
+
+        <AddItemForm addItem={addTodolist}/>
             {todolistInfo.map(todolist => {
-                return <Grid item
-                             key={todolist.id}>
-                    <Paper style={{padding: '10px'}}>
-                        <Todolist title={todolist.title}
-                                  todolistId={todolist.id}
-                                  filter={todolist.filter}
-                                  entityStatus={todolist.entityStatus}/>
-                    </Paper>
-                </Grid>
+                return <Todolist title={todolist.title}
+                              key={todolist.id}
+                              todolistId={todolist.id}
+                              filter={todolist.filter}
+                              entityStatus={todolist.entityStatus}/>
+
             })}
-        </Grid>
     </>
 }

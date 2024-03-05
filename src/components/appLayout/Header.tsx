@@ -42,12 +42,13 @@ export const Header = (props: HeaderProps) => {
                        background: "#36394c",
                        zIndex: (theme) => theme.zIndex.drawer + 1
                    }}>
-        <Toolbar>
+        <Toolbar variant="dense">
             <IconButton color="inherit"
                         aria-label="open drawer"
                         edge="start"
                         onClick={props.handleDrawerToggle}
-                        sx={{mr: 2, display: {sm: 'none'}}}>
+                        sx={{mr: 2,
+                            display: {sm: 'none'}}}>
                 <MenuIcon/>
             </IconButton>
             <Box sx={{

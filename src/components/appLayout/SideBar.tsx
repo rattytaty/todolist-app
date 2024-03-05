@@ -114,7 +114,7 @@ export const SideBar = (props:SideBarProps) => {
                     display: {xs: 'block', sm: 'none'},
                     '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
                 }}>
-            <Toolbar/>
+            <Toolbar variant="dense"/>
             <Box sx={{
                 overflow: 'auto',
                 backgroundColor: "#2a3142",
@@ -131,7 +131,7 @@ export const SideBar = (props:SideBarProps) => {
                     flexShrink: 0,
                     [`& .MuiDrawer-paper`]: {border: "none", width: drawerWidth, boxSizing: 'border-box'},
                 }}>
-            <Toolbar/>
+            <Toolbar variant="dense"/>
             <Box sx={{
                 overflow: 'auto',
                 backgroundColor: "#2a3142",
