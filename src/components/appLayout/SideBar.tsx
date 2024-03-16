@@ -16,11 +16,17 @@ import Box from "@mui/material/Box";
 const drawerWidth = 240
 
 type SideBarProps = {
-    setIsClosing:(value:boolean)=>void
-    setMobileOpen:(value:boolean)=>void
-    mobileOpen:boolean
+    setIsClosing: (value: boolean) => void
+    setMobileOpen: (value: boolean) => void
+    mobileOpen: boolean
 }
-export const SideBar = (props:SideBarProps) => {
+
+type MenuItems = {
+    route: string
+    name: string
+}
+
+export const SideBar = (props: SideBarProps) => {
 
 
     const [open, setOpen] = React.useState(true);
@@ -42,61 +48,132 @@ export const SideBar = (props:SideBarProps) => {
         <List
             sx={{width: '100%', maxWidth: drawerWidth}}
             subheader={
-                <ListSubheader sx={{background: "#2a3142", color: "#f3f3f3"}}>Menu:</ListSubheader>
+                <ListSubheader sx={{
+                    background: "#2a3142",
+                    color: "#bfc1c7"
+                }}>Menu:</ListSubheader>
             }>
-            <ListItemButton>
-                <ListItemIcon>
-                    <Home sx={{color: "#6b7a94"}}/>
+            <ListItemButton sx={{
+                "&:hover": {
+                    background: "#242a38", color: "#f3f3f3",
+                    '& .MuiSvgIcon-root': {
+                        color: "#f3f3f3"
+                    },
+                    "& .MuiListItemText-root": {
+                        color: "#f3f3f3"
+                    },
+                }
+            }}>
+                <ListItemIcon sx={{
+                    "&:hover": {color: "#f3f3f3"},
+                }}>
+                    <Home sx={{color: "#bfc1c7"}}/>
                 </ListItemIcon>
-                <ListItemText primary="Home"/>
+                <ListItemText sx={{
+                    color: "#bfc1c7",
+                }} primary="Home"/>
             </ListItemButton>
-            <ListItemButton>
+            <ListItemButton sx={{
+                "&:hover": {
+                    background: "#242a38", color: "#f3f3f3",
+                    '& .MuiSvgIcon-root': {
+                        color: "#f3f3f3"
+                    },
+                    "& .MuiListItemText-root": {
+                        color: "#f3f3f3"
+                    },
+                }
+            }}>
                 <ListItemIcon>
-                    <DashboardCustomize sx={{color: "#6b7a94"}}/>
+                    <DashboardCustomize sx={{color: "#bfc1c7"}}/>
                 </ListItemIcon>
-                <ListItemText primary="All boards"/>
+                <ListItemText sx={{color: "#bfc1c7"}} primary="All boards"/>
             </ListItemButton>
-            <ListItemButton>
+            <ListItemButton sx={{
+                "&:hover": {
+                    background: "#242a38", color: "#f3f3f3",
+                    '& .MuiSvgIcon-root': {
+                        color: "#f3f3f3"
+                    },
+                    "& .MuiListItemText-root": {
+                        color: "#f3f3f3"
+                    },
+                }
+            }}>
                 <ListItemIcon>
-                    <CalendarMonth sx={{color: "#6b7a94"}}/>
+                    <CalendarMonth sx={{color: "#bfc1c7"}}/>
                 </ListItemIcon>
-                <ListItemText primary="Calendar"/>
+                <ListItemText sx={{color: "#bfc1c7"}} primary="Calendar"/>
             </ListItemButton>
-            <ListItemButton>
+            <ListItemButton sx={{
+                "&:hover": {
+                    background: "#242a38", color: "#f3f3f3",
+                    '& .MuiSvgIcon-root': {
+                        color: "#f3f3f3"
+                    },
+                    "& .MuiListItemText-root": {
+                        color: "#f3f3f3"
+                    },
+                }
+            }}>
                 <ListItemIcon>
-                    <Settings sx={{color: "#6b7a94"}}/>
+                    <Settings sx={{color: "#bfc1c7"}}/>
                 </ListItemIcon>
-                <ListItemText primary="Settings"/>
+                <ListItemText sx={{color: "#bfc1c7"}} primary="Settings"/>
             </ListItemButton>
-            <ListItemButton onClick={handleClick}>
+            <ListItemButton sx={{
+                "&:hover": {
+                    background: "#242a38", color: "#f3f3f3",
+                    '& .MuiSvgIcon-root': {
+                        color: "#f3f3f3"
+                    },
+                    "& .MuiListItemText-root": {
+                        color: "#f3f3f3"
+                    },
+                }
+            }} onClick={handleClick}>
                 <ListItemIcon>
-                    <Favorite sx={{color: "#6b7a94"}}/>
+                    <Favorite sx={{color: "#bfc1c7"}}/>
                 </ListItemIcon>
-                <ListItemText primary="Favorite boards"/>
-                {open ? <ExpandLess/> : <ExpandMore/>}
+                <ListItemText sx={{color: "#bfc1c7"}} primary="Favorite boards"/>
+                {open ? <ExpandLess sx={{color: "#bfc1c7"}}/> : <ExpandMore sx={{color: "#cfd3d9"}}/>}
             </ListItemButton>
             <Collapse in={open}
                       timeout="auto"
                       unmountOnExit>
                 <List component="div"
                       disablePadding>
-                    <ListItemButton sx={{pl: 4}}>
+                    <ListItemButton sx={{pl: 4,
+                        "&:hover": {
+                            background: "#242a38", color: "#f3f3f3",
+                            '& .MuiSvgIcon-root': {
+                                color: "#f3f3f3"
+                            },
+                            "& .MuiListItemText-root": {
+                                color: "#f3f3f3"
+                            },
+                        }
+                    }}>
                         <ListItemIcon>
                             <StarBorder/>
                         </ListItemIcon>
-                        <ListItemText primary="Project 1"/>
+                        <ListItemText sx={{color: "#bfc1c7"}} primary="Project 1"/>
                     </ListItemButton>
-                    <ListItemButton sx={{pl: 4}}>
+                    <ListItemButton sx={{pl: 4,
+                        "&:hover": {
+                            background: "#242a38", color: "#f3f3f3",
+                            '& .MuiSvgIcon-root': {
+                                color: "#f3f3f3"
+                            },
+                            "& .MuiListItemText-root": {
+                                color: "#f3f3f3"
+                            },
+                        }
+                    }} >
                         <ListItemIcon>
                             <StarBorder/>
                         </ListItemIcon>
-                        <ListItemText primary="Project 2"/>
-                    </ListItemButton>
-                    <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon>
-                            <StarBorder/>
-                        </ListItemIcon>
-                        <ListItemText primary="Project 3"/>
+                        <ListItemText sx={{color: "#bfc1c7"}} primary="Project 2"/>
                     </ListItemButton>
                 </List>
             </Collapse>

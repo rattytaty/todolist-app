@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from "react";
 import {AddItemForm} from "../../AddItemForm";
 import {EditableSpan} from "../../EditableSpan";
 import {TaskStatuses, TaskType} from "../../../api/tasks-api";
-import {IconButton, Typography} from "@mui/material";
+import {Card, IconButton, Typography} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {RequestStatusType} from "../../../Store/Reducers/app-reducer";
 import {ChangeTodoTitleTC, deleteTodoTC, FilterValuesType} from "../../../Store/Reducers/todolists-reducer";
@@ -57,9 +57,9 @@ export const Todolist: React.FC<TodolistProps> = React.memo(({
         })
     const tasksList = tasksForTodolist && tasksForTodolist.length ? tasksForTodolist.map(taskListItem) : "Todolist is empty :("
 
-    return <div>
-        <Typography variant={"h5"}
-                    align={"center"}>
+    return <Card>
+        <Typography variant="h5"
+                    align="center">
             <EditableSpan editTitle={changeTodoTitle}
                           title={title}/>
             <IconButton  onClick={deleteTodolist}
@@ -71,6 +71,6 @@ export const Todolist: React.FC<TodolistProps> = React.memo(({
                      disabled={entityStatus === 'loading'}/>
         {tasksList}
         <SelectFilter todolistId={todolistId} filter={filter}/>
-    </div>
+    </Card>
 })
 

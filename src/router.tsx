@@ -2,7 +2,7 @@ import React from "react";
 import {ErrorPage} from "./components/Pages/ErrorPage";
 import {Layout} from "./components/appLayout/Layout";
 import {createBrowserRouter} from "react-router-dom";
-import {TodolistsPage} from "./components/Pages/Todolist/TodolistsPage";
+import {BoardsPage} from "./components/Pages/Todolist/BoardsPage";
 import {Login} from "./components/Pages/login/Login";
 
 export const router = createBrowserRouter([{
@@ -12,7 +12,7 @@ export const router = createBrowserRouter([{
     children: [
         {   
             index: true,
-            element: <TodolistsPage/>
+            element: <BoardsPage/>
         },
     ]
 },

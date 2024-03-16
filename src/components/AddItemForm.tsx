@@ -1,6 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent, useRef, useState} from 'react';
-import {IconButton, TextField} from "@mui/material";
-import {AddBox} from "@mui/icons-material";
+import {Button, IconButton, TextField} from "@mui/material";
+import {Add, AddBox} from "@mui/icons-material";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 
 type AddItemFormProps={
     addItem:(itemTitle:string)=>void
@@ -33,21 +35,32 @@ export const AddItemForm = React.memo((props:AddItemFormProps) => {
 
     return <div>
             <TextField variant="outlined"
-                       disabled={false}
+                       size="small"
+                       label="Title"
+//color={#626ed4}
+                       sx={{input: {color:"#f3f3f3"}}}
+
+                       disabled={props.disabled}
                        error={!!error}
                        value={newItemName}
                        onChange={inputOnChange}
                        onKeyDown={inputEnterPress}
                        helperText={error}
                        ref={inputRef}
-                       size={"small"}
                        onBlur={onBlurHandler}
                        placeholder={error?"Title is required":"Title"}/>
-            <IconButton color="primary"
-                        onClick={addNewTask}
-                        disabled={props.disabled}>
-                <AddBox />
-            </IconButton>
+
+        <Button variant="contained"
+                size="small"
+                sx={{
+                    background: "#626ed4",
+                    color: "#f3f3f3",
+                    "&:hover": {background: ""}
+                }}
+                onClick={addNewTask}
+                disabled={props.disabled}>Add</Button>
+
+
         </div>
 
 });

@@ -47,8 +47,10 @@ export const Header = (props: HeaderProps) => {
                         aria-label="open drawer"
                         edge="start"
                         onClick={props.handleDrawerToggle}
-                        sx={{mr: 2,
-                            display: {sm: 'none'}}}>
+                        sx={{
+                            mr: 2,
+                            display: {sm: 'none'}
+                        }}>
                 <MenuIcon/>
             </IconButton>
             <Box sx={{
@@ -88,10 +90,15 @@ export const Header = (props: HeaderProps) => {
                     m: 1,
                 }}>{"username"[0]}</Avatar>
                 <Typography>username1</Typography>
-                <IconButton aria-describedby={id}
+                <IconButton size="small"
+                            aria-describedby={id}
                             onClick={handlePopoverClick}
-                            sx={{borderColor: "#626ed4",
-                                color: "#626ed4"}}>
+                            sx={{
+                                color: "#626ed4",
+                                "&:hover": {
+                                    background: "#242a38"
+                                }
+                            }}>
                     {openPopover
                         ? <ExpandLess/>
                         : <ExpandMore/>}

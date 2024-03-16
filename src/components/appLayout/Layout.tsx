@@ -19,13 +19,11 @@ export const Layout = () => {
     const [isClosing, setIsClosing] = React.useState(false);
 
 
-
     const handleDrawerToggle = () => {
         if (!isClosing) {
             setMobileOpen(!mobileOpen);
         }
     };
-
 
 
     if (!isLoggedIn) {
@@ -40,18 +38,16 @@ export const Layout = () => {
         <Header handleDrawerToggle={handleDrawerToggle}/>
         <SideBar setIsClosing={setIsClosing}
                  setMobileOpen={setMobileOpen}
-        mobileOpen={mobileOpen}
-
-        />
+                 mobileOpen={mobileOpen}/>
         <Box component="main"
              sx={{
                  height: "100%",
                  width: "100%",
-                 p: 3,
                  background: "#252735",
-                 overflow: "auto"
+                 overflow: "auto",
+                 overscrollBehavior: "none"
              }}>
-            <Toolbar/>
+            <Toolbar variant="dense"/>
             <Outlet/>
 
             {appLoadingStatus === "loading"
