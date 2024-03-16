@@ -1,15 +1,14 @@
 import React, {ChangeEvent, KeyboardEvent, useRef, useState} from 'react';
-import {Button, IconButton, TextField} from "@mui/material";
-import {Add, AddBox} from "@mui/icons-material";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
+import {Button, TextField} from "@mui/material";
+import Box from "@mui/material/Box";
 
-type AddItemFormProps={
-    addItem:(itemTitle:string)=>void
-    disabled?:boolean
+type AddItemFormProps = {
+    addItem: (itemTitle: string) => void
+    disabled?: boolean
+    placeholderText?: string
 }
 
-export const AddItemForm = React.memo((props:AddItemFormProps) => {
+export const AddItemForm = React.memo((props: AddItemFormProps) => {
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [error, setError] = useState<boolean>(false)
@@ -17,7 +16,8 @@ export const AddItemForm = React.memo((props:AddItemFormProps) => {
         const noSpaceTaskName = newItemName.trim()
         if (noSpaceTaskName !== "") {
             props.addItem(noSpaceTaskName)
-        } else {const iEl = inputRef.current as HTMLInputElement
+        } else {
+            const iEl = inputRef.current as HTMLInputElement
             iEl.focus()
             !error && setError(true)
         }
@@ -29,39 +29,41 @@ export const AddItemForm = React.memo((props:AddItemFormProps) => {
     }
     const [newItemName, setNewItemName] = useState<string>("")
     const inputEnterPress = (event: KeyboardEvent<HTMLInputElement>) => event.key === "Enter" && addNewTask()
-    const onBlurHandler = () =>{
+    const onBlurHandler = () => {
         error && setError(false)
     }
 
-    return <div>
-            <TextField variant="outlined"
-                       size="small"
-                       label="Title"
-//color={#626ed4}
-                       sx={{input: {color:"#f3f3f3"}}}
-
-                       disabled={props.disabled}
-                       error={!!error}
-                       value={newItemName}
-                       onChange={inputOnChange}
-                       onKeyDown={inputEnterPress}
-                       helperText={error}
-                       ref={inputRef}
-                       onBlur={onBlurHandler}
-                       placeholder={error?"Title is required":"Title"}/>
+    return <Box sx={{display: "flex", alignItems:"center"}}>
+        <TextField sx={{input: {color: "#f3f3f3",
+                '&::placeholder': {
+                    color: "#bfc1c7"
+                }},
+                       '& .MuiInputBase-root': {
+                           height:31
+                       },
+                   }}
+                   //color="#626ed4"
+                   disabled={props.disabled}
+                   error={!!error}
+                   value={newItemName}
+                   onChange={inputOnChange}
+                   onKeyDown={inputEnterPress}
+                   helperText={error}
+                   ref={inputRef}
+                   onBlur={onBlurHandler}
+                   placeholder={error ? "Title is required!" : (props.placeholderText ? props.placeholderText : "Title")}/>
 
         <Button variant="contained"
                 size="small"
                 sx={{
                     background: "#626ed4",
                     color: "#f3f3f3",
-                    "&:hover": {background: ""}
+                    "&:hover": {background: "#3e49b2"}
                 }}
                 onClick={addNewTask}
-                disabled={props.disabled}>Add</Button>
+                disabled={props.disabled}>
+            Add</Button>
 
-
-        </div>
-
+    </Box>
 });
 

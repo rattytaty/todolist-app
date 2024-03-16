@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 
 import {TodolistMainType} from "../../../api/todolists-api";
 import {AddItemForm} from "../../AddItemForm";
-import {Todolist} from "./Todolist";
+import {Board} from "./Board";
 import {useAppDispatch, useAppSelector} from "../../../Store/Store";
 import {CreateTodoTC, getTodosThunkTC} from "../../../Store/Reducers/todolists-reducer";
 import {
@@ -26,11 +26,8 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import {
-    Link as RouterLink,
-    LinkProps as RouterLinkProps,
-    MemoryRouter,
-} from 'react-router-dom';
+import {Link as RouterLink,} from 'react-router-dom';
+import Grid from "@mui/material/Grid";
 
 
 export const BoardsPage: React.FC = () => {
@@ -62,14 +59,21 @@ export const BoardsPage: React.FC = () => {
             height: "130px",
         }}>
 
-            <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} sx={{m: 2}}>
-                <Link component={RouterLink} to="/" variant="h6" underline="hover"
-                      sx={{color: "#bfc1c7",
+            <Breadcrumbs separator={<NavigateNextIcon
+                fontSize="small"/>}
+                         sx={{m: 2}}>
+                <Link component={RouterLink}
+                      to="/"
+                      variant="h6"
+                      underline="hover"
+                      sx={{
+                          color: "#bfc1c7",
                           "&:hover": {color: "#626ed4"}
                       }}>
                     Home
                 </Link>
-                <Typography sx={{color:"#f3f3f3"}} variant="h6" >
+                <Typography sx={{color: "#f3f3f3"}}
+                            variant="h6">
                     All boards
                 </Typography>
                 {/*<Typography variant="h6">Breadcrumbs</Typography>*/}
@@ -80,8 +84,8 @@ export const BoardsPage: React.FC = () => {
                 m: 2,
                 color: "#fafafa",
                 display: "flex",
-                alignItems:"center",
-                gap:0.5
+                alignItems: "center",
+                gap: 0.5
             }}>
                 <EditCalendar fontSize="small"/>
                 <Typography>09.12.2011</Typography>
@@ -98,7 +102,7 @@ export const BoardsPage: React.FC = () => {
                     mt: 2,
                     background: "#626ed4",
                     color: "#f3f3f3",
-                    "&:hover": {background: ""}
+                    "&:hover": {background: "#3e49b2"}
                 }}
                 endIcon={isFavouriteOpen
                     ? <ExpandLess sx={{color: "#f3f3f3"}}/>
@@ -112,7 +116,7 @@ export const BoardsPage: React.FC = () => {
                 borderRadius: 1,
                 p: 1,
                 mx: 2,
-                mt:2
+                mt: 2
             }}>
                 <Stack sx={{
                     width: "100%",
@@ -161,13 +165,14 @@ export const BoardsPage: React.FC = () => {
             p: 1,
             m: 2
         }}>
-            <Box sx={{display: "flex", justifyContent: "space-between"}}>
+            <Box sx={{display: "flex",
+                justifyContent: "space-between"}}>
                 <AddItemForm addItem={addTodolist}/>
 
                 <FormControl sx={{width: "110px"}}
                              variant="standard"
                              size="small">
-                    <InputLabel sx={{color: "#626ed4",}}>Sort by</InputLabel>
+                    <InputLabel sx={{color: "#626ed4"}}>Sort by</InputLabel>
                     <Select sx={{
                         color: "#fafafa",
                         /*'&:before': {borderColor: "#626ed4"},
@@ -183,16 +188,20 @@ export const BoardsPage: React.FC = () => {
                     </Select>
                 </FormControl>
             </Box>
+            <Typography sx={{color: "#f3f3f3"}}
+                        variant="h6">Your Boards:</Typography>
 
+            <Grid spacing={1} container>
+                {todolistInfo.map(todolist => {
+                    return <Grid key={todolist.id} item>
+                        <Board title={todolist.title}
+                               todolistId={todolist.id}
+                               filter={todolist.filter}
+                               entityStatus={todolist.entityStatus}/>
+                    </Grid>
 
-            {todolistInfo.map(todolist => {
-                return <Todolist title={todolist.title}
-                                 key={todolist.id}
-                                 todolistId={todolist.id}
-                                 filter={todolist.filter}
-                                 entityStatus={todolist.entityStatus}/>
-
-            })}
+                })}
+            </Grid>
         </Box>
     </>
 }

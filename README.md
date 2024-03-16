@@ -1,4 +1,4 @@
-Todolist app using:
+Board app using:
 
 - React
 - Typescript

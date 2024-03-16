@@ -42,7 +42,7 @@ export const Header = (props: HeaderProps) => {
                        background: "#36394c",
                        zIndex: (theme) => theme.zIndex.drawer + 1
                    }}>
-        <Toolbar variant="dense">
+        <Toolbar sx={{ml:-1}} variant="dense">
             <IconButton color="inherit"
                         aria-label="open drawer"
                         edge="start"
@@ -114,25 +114,25 @@ export const Header = (props: HeaderProps) => {
                          transformOrigin={{
                              vertical: 'top',
                              horizontal: 'right',
-                         }}>
-                    <Box sx={{
-                        p: 1,
-                        background: "#2a3142",
-                        border: "1px solid ",
-                        borderColor: "#2a3142",
-                        color: "#f3f3f3",
-                    }}>
-                        <Typography>dawdawdawdawd@gmail.com</Typography>
-                        <Button variant="outlined"
-                                sx={{
-                                    background: "#494c5d",
-                                    borderColor: "#494c5d",
-                                    color: "#fafafa"
-                                }}
-                                size="small"
-                                startIcon={<Logout/>}
-                                onClick={logoutHandler}>Logout</Button>
-                    </Box>
+                         }}
+                         sx={{
+                             '& .MuiPaper-root': {
+                                 p: 1, background: "#2a3142",color: "#f3f3f3",
+                             }
+                         }}
+                >
+
+                    <Typography>dawdawdawdawd@gmail.com</Typography>
+                    <Button variant="contained"
+                            sx={{
+                                background: "#626ed4",
+                                color: "#f3f3f3",
+                                "&:hover": {background: "#3e49b2"}
+                            }}
+                            size="small"
+                            startIcon={<Logout/>}
+                            onClick={logoutHandler}>
+                        Logout</Button>
                 </Popover>
             </Box>
         </Toolbar>
