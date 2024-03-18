@@ -29,7 +29,6 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import {Link as RouterLink,} from 'react-router-dom';
 import Grid from "@mui/material/Grid";
 
-
 export const BoardsPage: React.FC = () => {
     const todolistInfo = useAppSelector<Array<TodolistMainType>>(state => state.todolistInfo)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
@@ -45,20 +44,17 @@ export const BoardsPage: React.FC = () => {
         dispatch(CreateTodoTC(newTodoTitle))
     }, [dispatch])
 
-
     const [sortValue, setSortValue] = useState<string>("Added date")
 
     const [isFavouriteOpen, setIsFavouriteOpen] = useState(false)
 
     return <>
-
         <Box sx={{
             display: "flex",
             justifyContent: "space-between",
             backgroundImage: "linear-gradient(112.1deg, #2b2c4f 11.4%, #354269 70.2%)",
             height: "130px",
         }}>
-
             <Breadcrumbs separator={<NavigateNextIcon
                 fontSize="small"/>}
                          sx={{m: 2}}>
@@ -70,8 +66,7 @@ export const BoardsPage: React.FC = () => {
                           color: "#bfc1c7",
                           "&:hover": {color: "#626ed4"}
                       }}>
-                    Home
-                </Link>
+                    Home</Link>
                 <Typography sx={{color: "#f3f3f3"}}
                             variant="h6">
                     All boards
@@ -90,11 +85,7 @@ export const BoardsPage: React.FC = () => {
                 <EditCalendar fontSize="small"/>
                 <Typography>09.12.2011</Typography>
             </Box>
-
-
         </Box>
-
-
         <Button variant="contained"
                 size="small"
                 sx={{
@@ -160,48 +151,50 @@ export const BoardsPage: React.FC = () => {
         </Collapse>
 
         <Box sx={{
-            background: "#2a3142",
-            borderRadius: 1,
-            p: 1,
-            m: 2
+            display: "flex",
+            justifyContent: "space-between",
+            m: 2,
         }}>
-            <Box sx={{display: "flex",
-                justifyContent: "space-between"}}>
-                <AddItemForm addItem={addTodolist}/>
-
-                <FormControl sx={{width: "110px"}}
-                             variant="standard"
-                             size="small">
-                    <InputLabel sx={{color: "#626ed4"}}>Sort by</InputLabel>
-                    <Select sx={{
-                        color: "#fafafa",
-                        /*'&:before': {borderColor: "#626ed4"},
-                                        '&:after': {borderColor: "#626ed4"},*/
-
-                    }}
-                            label="Sort by"
-                            value={sortValue}
-                            onChange={event => setSortValue(event.target.value)}>
-                        <MenuItem value="Added date">Added date</MenuItem>
-                        <MenuItem value="Order">Order</MenuItem>
-                        <MenuItem value="Name">Name</MenuItem>
-                    </Select>
-                </FormControl>
-            </Box>
-            <Typography sx={{color: "#f3f3f3"}}
-                        variant="h6">Your Boards:</Typography>
-
-            <Grid spacing={1} container>
-                {todolistInfo.map(todolist => {
-                    return <Grid key={todolist.id} item>
-                        <Board title={todolist.title}
-                               todolistId={todolist.id}
-                               filter={todolist.filter}
-                               entityStatus={todolist.entityStatus}/>
-                    </Grid>
-
-                })}
-            </Grid>
+            <AddItemForm addItem={addTodolist}/>
+            <FormControl sx={{width: "110px"}}
+                         variant="standard"
+            >
+                <InputLabel sx={{color: "#626ed4"}}>Sort by</InputLabel>
+                <Select sx={{
+                    color: "#fafafa",
+                    /*'&:before': {borderColor: "#626ed4"},
+                                    '&:after': {borderColor: "#626ed4"},*/
+                }}
+                        label="Sort by"
+                        size="small"
+                        value={sortValue}
+                        onChange={event => setSortValue(event.target.value)}>
+                    <MenuItem value="Added date">Added date</MenuItem>
+                    <MenuItem value="Order">Order</MenuItem>
+                    <MenuItem value="Name">Name</MenuItem>
+                </Select>
+            </FormControl>
         </Box>
+        <Typography sx={{
+            color: "#f3f3f3",
+            mx: 2,
+            my: -1
+        }}
+                    variant="h6">Your Boards:</Typography>
+
+        <Grid sx={{
+            m: 2,
+            gap: 2
+        }}
+              container>
+            {todolistInfo.map(todolist => {
+                return <Grid key={todolist.id} item>
+                    <Board title={todolist.title}
+                           todolistId={todolist.id}
+                           filter={todolist.filter}
+                           entityStatus={todolist.entityStatus}/>
+                </Grid>
+            })}
+        </Grid>
     </>
 }

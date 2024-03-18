@@ -18,12 +18,12 @@ type TodolistProps = {
 }
 
 export const Board: React.FC<TodolistProps> = React.memo(({
-                                                                 title,
-                                                                 filter,
-                                                                 entityStatus,
-                                                                 todolistId,
-                                                                 ...restProps
-                                                             }) => {
+                                                              title,
+                                                              filter,
+                                                              entityStatus,
+                                                              todolistId,
+                                                              ...restProps
+                                                          }) => {
 
     const dispatch = useAppDispatch()
     const tasks = useAppSelector(state => state.tasks[todolistId])
@@ -56,11 +56,16 @@ export const Board: React.FC<TodolistProps> = React.memo(({
         })
     const tasksList = tasksForTodolist && tasksForTodolist.length ? tasksForTodolist.map(taskListItem) : "Todolist is empty :("
 
-    return <Card sx={{p:1,background:"#626ed4",}}>
+    return <Card sx={{
+        background: "#2a3142",
+        borderRadius: 1,
+        p: 1,
+
+    }}>
         <Typography variant="h5"
                     align="center">
             {title}
-            <IconButton  onClick={deleteTodolist}
+            <IconButton onClick={deleteTodolist}
                         disabled={entityStatus === 'loading'}>
                 <Delete/>
             </IconButton>
