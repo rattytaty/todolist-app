@@ -4,6 +4,7 @@ import {ResponseType} from "../../api/tasks-api";
 import {setErrorAC, setLoadingStatusAC} from "../Reducers/app-reducer";
 
 export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch) => {
+    console.log("error")
     if (data.messages.length) {
         dispatch(setErrorAC({error:data.messages[0]}))
     } else {

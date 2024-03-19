@@ -1,42 +1,38 @@
 import {Navigate, Outlet} from "react-router-dom";
-import React from "react";
-import {ErrorSnackbar} from "../ErrorSnackBar";
+import React, {useState} from "react";
+import {ErrorMessage} from "../ErrorMessage";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import {CircularProgress, CssBaseline} from "@mui/material";
+import {CssBaseline} from "@mui/material";
 import {useAppSelector} from "../../Store/Store";
 import {Header} from "./Header";
 import {SideBar} from "./SideBar";
+import {LoadingCircle} from "./LoadingCircle";
 
 
 export const Layout = () => {
-
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-    const appLoadingStatus = useAppSelector((state) => state.app.loadingStatus)
-
-
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [isClosing, setIsClosing] = React.useState(false);
-
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const [isDrawerClosing, setIsDrawerClosing] = useState(false);
 
     const handleDrawerToggle = () => {
-        if (!isClosing) {
+        if (!isDrawerClosing) {
             setMobileOpen(!mobileOpen);
         }
     };
 
-
     if (!isLoggedIn) {
-        return <Navigate to={"/login"}/>
+        return <Navigate to="/login"/>
     }
     return <Box sx={{
         height: "100vh",
         width: "100vw",
-        display: 'flex'
+        display: "flex",
+        position: "relative"
     }}>
         <CssBaseline/>
         <Header handleDrawerToggle={handleDrawerToggle}/>
-        <SideBar setIsClosing={setIsClosing}
+        <SideBar setIsClosing={setIsDrawerClosing}
                  setMobileOpen={setMobileOpen}
                  mobileOpen={mobileOpen}/>
         <Box component="main"
@@ -50,11 +46,8 @@ export const Layout = () => {
             <Toolbar variant="dense"/>
             <Outlet/>
 
-            {appLoadingStatus === "loading"
-                ? <CircularProgress/>
-                : null}
-
-            <ErrorSnackbar/>
         </Box>
+        <ErrorMessage/>
+        <LoadingCircle/>
     </Box>
 }

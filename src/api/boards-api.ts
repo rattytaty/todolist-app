@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import {ResponseType} from "./tasks-api";
-import {FilterValuesType} from "../Store/Reducers/todolists-reducer";
+import {BoardFilterValues} from "../Store/Reducers/todolists-reducer";
 import {RequestStatusType} from "../Store/Reducers/app-reducer";
 
 
@@ -14,26 +14,26 @@ export const instance = axios.create({
 })
 
 
-export type TodolistMainType = TodolistServerType &{filter:FilterValuesType, entityStatus:RequestStatusType}
+export type BoardMainType = BoardServerType &{filter:BoardFilterValues, entityStatus:RequestStatusType}
 
-export type TodolistServerType = {
+export type BoardServerType = {
     id: string,
     title: string,
     addedDate: string,
     order: number
 }
 
-export const todolistsApi = {
-    getTodolists() {
-        return instance.get<TodolistServerType[]>("todo-lists")
+export const boardsApi = {
+    getAllBoards() {
+        return instance.get<BoardServerType[]>("todo-lists")
     },
-    createTodolist(title:string) {
-        return instance.post<ResponseType<{ item: TodolistServerType }>>("todo-lists", {title})
+    createBoard(title:string) {
+        return instance.post<ResponseType<{ item: BoardServerType }>>("todo-lists", {title})
     },
-    deleteTodolist(todolistId:string) {
+    deleteBoard(todolistId:string) {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}`)
     },
-    updateTodolistTitle(todolistId:string,data:{title:string}) {
+    updateBoardTitle(todolistId:string, data:{title:string}) {
         return instance.put<ResponseType>(`todo-lists/${todolistId}`, data)
     },
 }

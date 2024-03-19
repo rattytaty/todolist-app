@@ -61,42 +61,40 @@ export const Login = () => {
     }
 
     if (isLoggedIn) {
-        return <Navigate to={"/"}/>
+        return <Navigate to="/"/>
     }
 
-    return <Grid container justifyContent={"flex-end"}>
+    return <Grid container
+                 justifyContent="flex-end">
         <Grid container
               justifyContent="center"
               alignItems="center">
             <form onSubmit={formik.handleSubmit}>
-
-                <FormControl >
+                <FormControl>
                     <FormGroup>
-                        <TextField
-                            label="Email"
-                            margin="normal"
-                            {...formik.getFieldProps("email")}
+                        <TextField label="Email"
+                                   margin="normal"
+                                   {...formik.getFieldProps("email")}
                         />
                         {formik.errors.email ? <div>{formik.errors.email}</div> : null}
-                        <TextField
-                            type="password"
-                            label="Password"
-                            margin="normal"
-                            {...formik.getFieldProps("password")}
+                        <TextField type="password"
+                                   label="Password"
+                                   margin="normal"
+                                   {...formik.getFieldProps("password")}
                         />
                         {formik.errors.password ? <div>{formik.errors.password}</div> : null}
-                        <FormControlLabel
-                            label={'Remember me'}
-                            control={<Checkbox
-                                {...formik.getFieldProps("rememberMe")}
-                                checked={formik.values.rememberMe}
-                            />}
+                        <FormControlLabel label='Remember me'
+                                          control={<Checkbox
+                                              {...formik.getFieldProps("rememberMe")}
+                                              checked={formik.values.rememberMe}
+                                          />}
                         />
-                        <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
+                        <Button type='submit'
+                                variant='contained' color='primary'>Login</Button>
                     </FormGroup>
                     <FormLabel>
-                        <p> To log in sign up <NavLink to={'https://social-network.samuraijs.com/signUp'}
-                                                       target={'_blank'}>here</NavLink>.</p>
+                        <p> To log in sign up <NavLink to='https://social-network.samuraijs.com/signUp'
+                                                       target='_blank'>here</NavLink>.</p>
                         <p>Or use this free account:</p>
                         <p>Email: free@samuraijs.com</p>
                         <p>Password: free</p>

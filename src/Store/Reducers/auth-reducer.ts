@@ -9,6 +9,7 @@ export const logInTC = (data: loginData) => (dispatch: Dispatch) => {
     dispatch(setLoadingStatusAC({loadingStatus:"loading"}))
     authApi.login(data)
         .then(res => {
+            console.log(res)
             if (res.data.resultCode === 0) {
                 dispatch(setIsLoggedInAC({IsLoggedIn:true}))
                 dispatch(setLoadingStatusAC({loadingStatus:"succeeded"}))

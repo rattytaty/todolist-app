@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import {CalendarMonth, DashboardCustomize, Favorite, Home, Settings} from "@mui/icons-material";
+import {CalendarMonth as CalendarMonthIcon, DashboardCustomize as BoardsIcon, Favorite as FavoriteIcon, Settings as SettingsIcon} from "@mui/icons-material";
 import ListItemText from "@mui/material/ListItemText";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -12,6 +12,7 @@ import StarBorder from "@mui/icons-material/StarBorder";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
+import {useNavigate} from "react-router-dom";
 
 const drawerWidth = 240
 
@@ -28,11 +29,11 @@ type MenuItems = {
 
 export const SideBar = (props: SideBarProps) => {
 
-
-    const [open, setOpen] = React.useState(true);
+    const navigate = useNavigate()
+    const [isDrawerOpen, setIsDrawerOpen] = useState(true);
 
     const handleClick = () => {
-        setOpen(!open);
+        setIsDrawerOpen(!isDrawerOpen);
     };
     const handleDrawerClose = () => {
         props.setIsClosing(true);
@@ -45,8 +46,7 @@ export const SideBar = (props: SideBarProps) => {
 
 
     const drawer = (
-        <List
-            sx={{width: '100%', maxWidth: drawerWidth}}
+        <List sx={{width: '100%', maxWidth: drawerWidth}}
             subheader={
                 <ListSubheader sx={{
                     background: "#2a3142",
@@ -64,32 +64,12 @@ export const SideBar = (props: SideBarProps) => {
                     },
                 }
             }}>
-                <ListItemIcon sx={{
-                    "&:hover": {color: "#f3f3f3"},
-                }}>
-                    <Home sx={{color: "#bfc1c7"}}/>
-                </ListItemIcon>
-                <ListItemText sx={{
-                    color: "#bfc1c7",
-                }} primary="Home"/>
-            </ListItemButton>
-            <ListItemButton sx={{
-                "&:hover": {
-                    background: "#242a38", color: "#f3f3f3",
-                    '& .MuiSvgIcon-root': {
-                        color: "#f3f3f3"
-                    },
-                    "& .MuiListItemText-root": {
-                        color: "#f3f3f3"
-                    },
-                }
-            }}>
                 <ListItemIcon>
-                    <DashboardCustomize sx={{color: "#bfc1c7"}}/>
+                    <BoardsIcon sx={{color: "#bfc1c7"}}/>
                 </ListItemIcon>
                 <ListItemText sx={{color: "#bfc1c7"}} primary="All boards"/>
             </ListItemButton>
-            <ListItemButton sx={{
+            <ListItemButton onClick={()=>navigate("/calendar")} sx={{
                 "&:hover": {
                     background: "#242a38", color: "#f3f3f3",
                     '& .MuiSvgIcon-root': {
@@ -101,7 +81,7 @@ export const SideBar = (props: SideBarProps) => {
                 }
             }}>
                 <ListItemIcon>
-                    <CalendarMonth sx={{color: "#bfc1c7"}}/>
+                    <CalendarMonthIcon sx={{color: "#bfc1c7"}}/>
                 </ListItemIcon>
                 <ListItemText sx={{color: "#bfc1c7"}} primary="Calendar"/>
             </ListItemButton>
@@ -117,7 +97,7 @@ export const SideBar = (props: SideBarProps) => {
                 }
             }}>
                 <ListItemIcon>
-                    <Settings sx={{color: "#bfc1c7"}}/>
+                    <SettingsIcon sx={{color: "#bfc1c7"}}/>
                 </ListItemIcon>
                 <ListItemText sx={{color: "#bfc1c7"}} primary="Settings"/>
             </ListItemButton>
@@ -133,12 +113,12 @@ export const SideBar = (props: SideBarProps) => {
                 }
             }} onClick={handleClick}>
                 <ListItemIcon>
-                    <Favorite sx={{color: "#bfc1c7"}}/>
+                    <FavoriteIcon sx={{color: "#bfc1c7"}}/>
                 </ListItemIcon>
                 <ListItemText sx={{color: "#bfc1c7"}} primary="Favorite boards"/>
-                {open ? <ExpandLess sx={{color: "#bfc1c7"}}/> : <ExpandMore sx={{color: "#cfd3d9"}}/>}
+                {isDrawerOpen ? <ExpandLess sx={{color: "#bfc1c7"}}/> : <ExpandMore sx={{color: "#cfd3d9"}}/>}
             </ListItemButton>
-            <Collapse in={open}
+            <Collapse in={isDrawerOpen}
                       timeout="auto"
                       unmountOnExit>
                 <List component="div"

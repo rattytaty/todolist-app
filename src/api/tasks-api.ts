@@ -1,4 +1,4 @@
-import {instance} from "./todolists-api";
+import {instance} from "./boards-api";
 
 export enum TaskStatuses {
     New = 0,
@@ -19,7 +19,7 @@ export type TaskType = {
     id: string,
     title: string,
     description: string,
-    todoListId: string,
+    boardId: string,
     order: number,
     status: TaskStatuses,
     priority: TasksPriorities,

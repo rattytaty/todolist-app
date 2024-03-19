@@ -1,17 +1,17 @@
 import React from 'react';
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import {ChangeTodoFilterAC, FilterValuesType} from "../../../Store/Reducers/todolists-reducer";
+import {ChangeTodoFilterAC, BoardFilterValues} from "../../../Store/Reducers/todolists-reducer";
 import {useAppDispatch} from "../../../Store/Store";
 
 type SelectFilterProps = {
     todolistId:string
-    filter:FilterValuesType
+    filter:BoardFilterValues
 }
 
 export const SelectFilter: React.FC<SelectFilterProps> = React.memo(({todolistId, filter}) => {
 
     const dispatch = useAppDispatch()
-    const changeTodoFilter = (filterValue: FilterValuesType) => {
+    const changeTodoFilter = (filterValue: BoardFilterValues) => {
         dispatch(ChangeTodoFilterAC({filterValue, todolistId}))
     }
     return (

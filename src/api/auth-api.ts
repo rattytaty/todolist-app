@@ -1,4 +1,4 @@
-import {instance} from "./todolists-api";
+import {instance} from "./boards-api";
 import {ResponseType} from "./tasks-api";
 export type loginData = {
     email:string

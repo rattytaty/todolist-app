@@ -1,10 +1,10 @@
 import React, {useCallback, useEffect, useState} from "react";
 
-import {TodolistMainType} from "../../../api/todolists-api";
+import {BoardMainType} from "../../../api/boards-api";
 import {AddItemForm} from "../../AddItemForm";
 import {Board} from "./Board";
 import {useAppDispatch, useAppSelector} from "../../../Store/Store";
-import {CreateTodoTC, getTodosThunkTC} from "../../../Store/Reducers/todolists-reducer";
+import {createBoardTC, getAllBoardsTC} from "../../../Store/Reducers/todolists-reducer";
 import {
     Breadcrumbs,
     Button,
@@ -30,18 +30,19 @@ import {Link as RouterLink,} from 'react-router-dom';
 import Grid from "@mui/material/Grid";
 
 export const BoardsPage: React.FC = () => {
-    const todolistInfo = useAppSelector<Array<TodolistMainType>>(state => state.todolistInfo)
+
+    const todolistInfo = useAppSelector<Array<BoardMainType>>(state => state.todolistInfo)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
     const dispatch = useAppDispatch()
     useEffect(() => {
         if (isLoggedIn) {
-            dispatch(getTodosThunkTC())
+            dispatch(getAllBoardsTC())
         }
     }, [isLoggedIn, dispatch])
 
     const addTodolist = useCallback((newTodoTitle: string) => {
-        dispatch(CreateTodoTC(newTodoTitle))
+        dispatch(createBoardTC(newTodoTitle))
     }, [dispatch])
 
     const [sortValue, setSortValue] = useState<string>("Added date")
@@ -71,7 +72,7 @@ export const BoardsPage: React.FC = () => {
                             variant="h6">
                     All boards
                 </Typography>
-                {/*<Typography variant="h6">Breadcrumbs</Typography>*/}
+
             </Breadcrumbs>
 
             <Box sx={{
@@ -102,52 +103,47 @@ export const BoardsPage: React.FC = () => {
 
         <Collapse in={isFavouriteOpen}
                   timeout="auto">
-            <Box sx={{
-                background: "#2a3142",
-                borderRadius: 1,
-                p: 1,
+
+            <Stack sx={{
+                width: "100%",
+                overflowX: "auto",
                 mx: 2,
-                mt: 2
-            }}>
-                <Stack sx={{
-                    width: "100%",
-                    overflowX: "auto"
-                }}
-                       direction="row"
-                       spacing={2}>
-                    <Card sx={{
-                        minWidth: "160px",
-                        height: "min-content",
-                        p: 0.5,
-                        background: "#626ed4",
-                        transition: "background-color 0.3s",
-                        cursor: "pointer",
-                        "&:hover": {
-                            //background: "#f3f3f3"
-                        },
-                    }}>
-                        <CardContent>
-                            <Typography sx={{color: "#f3f3f3"}}
-                                        variant="h5"
-                                        component="div">
-                                Project 1
-                            </Typography>
-                            <Typography sx={{color: "#bfc1c7"}}>
-                                2 tasks
-                            </Typography>
-                        </CardContent>
-                        <CardActions sx={{mt: -2}}>
-                            <Typography sx={{
-                                ml: 1,
-                                color: "#bfc1c7"
-                            }}>09.02.2021</Typography>
-                            <IconButton sx={{marginLeft: "auto"}}>
-                                <Favorite/>
-                            </IconButton>
-                        </CardActions>
-                    </Card>
-                </Stack>
-            </Box>
+                mt: 2,
+            }}
+                   direction="row"
+                   spacing={2}>
+                <Card sx={{
+
+                    minWidth: "160px",
+                    height: "min-content",
+                    background: "#2a3142",
+                    transition: "background-color 0.3s",
+                    cursor: "pointer",
+                    "&:hover": {
+                        //background: "#f3f3f3"
+                    },
+                }}>
+                    <CardContent>
+                        <Typography sx={{color: "#f3f3f3"}}
+                                    variant="h5"
+                                    component="div">
+                            Project 1
+                        </Typography>
+                        <Typography sx={{color: "#bfc1c7"}}>
+                            2 tasks
+                        </Typography>
+                    </CardContent>
+                    <CardActions sx={{mt: -2}}>
+                        <Typography sx={{
+                            ml: 1,
+                            color: "#bfc1c7"
+                        }}>09.02.2021</Typography>
+                        <IconButton sx={{marginLeft: "auto"}}>
+                            <Favorite/>
+                        </IconButton>
+                    </CardActions>
+                </Card>
+            </Stack>
         </Collapse>
 
         <Box sx={{
@@ -181,20 +177,32 @@ export const BoardsPage: React.FC = () => {
             my: -1
         }}
                     variant="h6">Your Boards:</Typography>
-
-        <Grid sx={{
-            m: 2,
-            gap: 2
-        }}
-              container>
-            {todolistInfo.map(todolist => {
-                return <Grid key={todolist.id} item>
-                    <Board title={todolist.title}
-                           todolistId={todolist.id}
-                           filter={todolist.filter}
-                           entityStatus={todolist.entityStatus}/>
+        <Grid container
+              columns={{
+                  xs: 1,
+                  sm: 1,
+                  md: 2,
+                  lg: 3
+              }}
+              spacing={2}
+              sx={{
+                  px: 2,
+                  py: 1
+              }}>
+            {todolistInfo.map(board => {
+                return <Grid xs={1}
+                             sm={1}
+                             md={1}
+                             lg={1}
+                             item
+                             key={board.id}>
+                    <Board title={board.title}
+                           todolistId={board.id}
+                           filter={board.filter}
+                           entityStatus={board.entityStatus}/>
                 </Grid>
             })}
         </Grid>
+
     </>
 }
