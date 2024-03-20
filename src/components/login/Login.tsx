@@ -11,10 +11,10 @@ import {
 } from "@mui/material";
 import {useFormik} from "formik";
 import {Navigate, NavLink} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../../Store/Store";
-import {logInTC} from "../../../Store/Reducers/auth-reducer";
+import {useAppDispatch, useAppSelector} from "../../Store/Store";
+import {logInTC} from "../../Store/Reducers/auth-reducer";
 import React, {useEffect} from "react";
-import {initializeAppTC} from "../../../Store/Reducers/app-reducer";
+import {initializeAppTC} from "../../Store/Reducers/app-reducer";
 
 type FormikErrorType = {
     email?: string

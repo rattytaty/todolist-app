@@ -1,8 +1,8 @@
 import React from "react";
 import {Layout} from "./components/appLayout/Layout";
 import {createBrowserRouter} from "react-router-dom";
-import {BoardsPage} from "./components/Pages/Boards/BoardsPage";
-import {Login} from "./components/Pages/login/Login";
+import {BoardsPage} from "./components/Boards/BoardsPage";
+import {Login} from "./components/login/Login";
 
 export const router = createBrowserRouter([{
     path: "/",

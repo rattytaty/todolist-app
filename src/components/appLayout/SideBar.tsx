@@ -3,7 +3,12 @@ import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import {CalendarMonth as CalendarMonthIcon, DashboardCustomize as BoardsIcon, Favorite as FavoriteIcon, Settings as SettingsIcon} from "@mui/icons-material";
+import {
+    CalendarMonth as CalendarIcon,
+    DashboardCustomize as BoardsIcon,
+    Favorite as FavoriteIcon,
+    Settings as SettingsIcon
+} from "@mui/icons-material";
 import ListItemText from "@mui/material/ListItemText";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -13,163 +18,142 @@ import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import {useNavigate} from "react-router-dom";
+import {styled} from "@mui/material";
 
 const drawerWidth = 240
 
 type SideBarProps = {
-    setIsClosing: (value: boolean) => void
-    setMobileOpen: (value: boolean) => void
-    mobileOpen: boolean
+    setDrawerIsClosing: (value: boolean) => void
+    setIsDrawerOpen: (value: boolean) => void
+    isDrawerOpen: boolean
 }
 
 type MenuItems = {
     route: string
-    name: string
+    name: string,
+    icon: React.ReactNode
 }
 
-export const SideBar = (props: SideBarProps) => {
+const menuItems: MenuItems[] = [
+    {
+        route: "",
+        name: "All boards",
+        icon: <BoardsIcon />
+    }, {
+        route: "/calendar",
+        name: "Calendar",
+        icon: <CalendarIcon />
+    }, {
+        route: "/settings",
+        name: "Settings",
+        icon: <SettingsIcon/>
+    }
+]
+
+export const SideBar = ({setDrawerIsClosing, setIsDrawerOpen, isDrawerOpen}: SideBarProps) => {
 
     const navigate = useNavigate()
-    const [isDrawerOpen, setIsDrawerOpen] = useState(true);
+    const [isFavoriteBlockOpen, setIsFavoriteBlockOpen] = useState(true);
 
-    const handleClick = () => {
-        setIsDrawerOpen(!isDrawerOpen);
+    const toggleFavoriteBlock = () => {
+        setIsFavoriteBlockOpen(!isFavoriteBlockOpen);
     };
+
     const handleDrawerClose = () => {
-        props.setIsClosing(true);
-        props.setMobileOpen(false);
+        setDrawerIsClosing(true);
+        setIsDrawerOpen(false);
     };
 
     const handleDrawerTransitionEnd = () => {
-        props.setIsClosing(false);
+        setDrawerIsClosing(false);
     };
 
+    const ListStyled = styled(List)({
+        width: "100%",
+        maxWidth: drawerWidth,
+        "& .MuiListItemButton-root": {
+            "&:hover": {
+                background: "#242a38",
+                color: "#f3f3f3",
+                "& .MuiSvgIcon-root": {
+                    color: "#f3f3f3"
+                },
+                "& .MuiListItemText-root": {
+                    color: "#f3f3f3"
+                },
+            }
+        },
+        "& .MuiListItemText-root": {
+            color: "#bfc1c7"
+        },
+        "& .MuiSvgIcon-root": {
+            color: "#bfc1c7"
+        },
+        "& .MuiListSubheader-root": {
+            background: "#2a3142",
+            color: "#bfc1c7"
+        },
+    })
 
     const drawer = (
-        <List sx={{width: '100%', maxWidth: drawerWidth}}
-            subheader={
-                <ListSubheader sx={{
-                    background: "#2a3142",
-                    color: "#bfc1c7"
-                }}>Menu:</ListSubheader>
-            }>
-            <ListItemButton sx={{
-                "&:hover": {
-                    background: "#242a38", color: "#f3f3f3",
-                    '& .MuiSvgIcon-root': {
-                        color: "#f3f3f3"
-                    },
-                    "& .MuiListItemText-root": {
-                        color: "#f3f3f3"
-                    },
-                }
-            }}>
+        <ListStyled subheader={<ListSubheader>Menu:</ListSubheader>}>
+            {menuItems.map(item =>
+                <ListItemButton onClick={() => navigate(item.route)}>
+                    <ListItemIcon>
+                        {item.icon}
+                    </ListItemIcon>
+                    <ListItemText primary={item.name}/>
+                </ListItemButton>
+            )}
+            <ListItemButton onClick={toggleFavoriteBlock}>
                 <ListItemIcon>
-                    <BoardsIcon sx={{color: "#bfc1c7"}}/>
+                    <FavoriteIcon/>
                 </ListItemIcon>
-                <ListItemText sx={{color: "#bfc1c7"}} primary="All boards"/>
+                <ListItemText primary="Favorite boards"/>
+                {isFavoriteBlockOpen ? <ExpandLess/> : <ExpandMore/>}
             </ListItemButton>
-            <ListItemButton onClick={()=>navigate("/calendar")} sx={{
-                "&:hover": {
-                    background: "#242a38", color: "#f3f3f3",
-                    '& .MuiSvgIcon-root': {
-                        color: "#f3f3f3"
-                    },
-                    "& .MuiListItemText-root": {
-                        color: "#f3f3f3"
-                    },
-                }
-            }}>
-                <ListItemIcon>
-                    <CalendarMonthIcon sx={{color: "#bfc1c7"}}/>
-                </ListItemIcon>
-                <ListItemText sx={{color: "#bfc1c7"}} primary="Calendar"/>
-            </ListItemButton>
-            <ListItemButton sx={{
-                "&:hover": {
-                    background: "#242a38", color: "#f3f3f3",
-                    '& .MuiSvgIcon-root': {
-                        color: "#f3f3f3"
-                    },
-                    "& .MuiListItemText-root": {
-                        color: "#f3f3f3"
-                    },
-                }
-            }}>
-                <ListItemIcon>
-                    <SettingsIcon sx={{color: "#bfc1c7"}}/>
-                </ListItemIcon>
-                <ListItemText sx={{color: "#bfc1c7"}} primary="Settings"/>
-            </ListItemButton>
-            <ListItemButton sx={{
-                "&:hover": {
-                    background: "#242a38", color: "#f3f3f3",
-                    '& .MuiSvgIcon-root': {
-                        color: "#f3f3f3"
-                    },
-                    "& .MuiListItemText-root": {
-                        color: "#f3f3f3"
-                    },
-                }
-            }} onClick={handleClick}>
-                <ListItemIcon>
-                    <FavoriteIcon sx={{color: "#bfc1c7"}}/>
-                </ListItemIcon>
-                <ListItemText sx={{color: "#bfc1c7"}} primary="Favorite boards"/>
-                {isDrawerOpen ? <ExpandLess sx={{color: "#bfc1c7"}}/> : <ExpandMore sx={{color: "#cfd3d9"}}/>}
-            </ListItemButton>
-            <Collapse in={isDrawerOpen}
+            <Collapse in={isFavoriteBlockOpen}
                       timeout="auto"
                       unmountOnExit>
                 <List component="div"
                       disablePadding>
-                    <ListItemButton sx={{pl: 4,
-                        "&:hover": {
-                            background: "#242a38", color: "#f3f3f3",
-                            '& .MuiSvgIcon-root': {
-                                color: "#f3f3f3"
-                            },
-                            "& .MuiListItemText-root": {
-                                color: "#f3f3f3"
-                            },
-                        }
+                    <ListItemButton sx={{
+                        pl: 4
                     }}>
                         <ListItemIcon>
                             <StarBorder/>
                         </ListItemIcon>
-                        <ListItemText sx={{color: "#bfc1c7"}} primary="Project 1"/>
+                        <ListItemText primary="Project 1"/>
                     </ListItemButton>
-                    <ListItemButton sx={{pl: 4,
-                        "&:hover": {
-                            background: "#242a38", color: "#f3f3f3",
-                            '& .MuiSvgIcon-root': {
-                                color: "#f3f3f3"
-                            },
-                            "& .MuiListItemText-root": {
-                                color: "#f3f3f3"
-                            },
-                        }
-                    }} >
+                    <ListItemButton sx={{
+                        pl: 4
+                    }}>
                         <ListItemIcon>
                             <StarBorder/>
                         </ListItemIcon>
-                        <ListItemText sx={{color: "#bfc1c7"}} primary="Project 2"/>
+                        <ListItemText primary="Project 2"/>
                     </ListItemButton>
                 </List>
             </Collapse>
-        </List>);
+        </ListStyled>)
 
     return <nav>
         <Drawer variant="temporary"
-                open={props.mobileOpen}
+                open={isDrawerOpen}
                 onTransitionEnd={handleDrawerTransitionEnd}
                 onClose={handleDrawerClose}
                 ModalProps={{
                     keepMounted: true
                 }}
                 sx={{
-                    display: {xs: 'block', sm: 'none'},
-                    '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+                    display: {
+                        xs: 'block',
+                        sm: 'none'
+                    },
+                    '& .MuiDrawer-paper': {
+                        boxSizing: 'border-box',
+                        width: drawerWidth
+                    },
                 }}>
             <Toolbar variant="dense"/>
             <Box sx={{
@@ -183,10 +167,17 @@ export const SideBar = (props: SideBarProps) => {
         </Drawer>
         <Drawer variant="permanent"
                 sx={{
-                    display: {xs: 'none', sm: 'block'},
+                    display: {
+                        xs: 'none',
+                        sm: 'block'
+                    },
                     width: drawerWidth,
                     flexShrink: 0,
-                    [`& .MuiDrawer-paper`]: {border: "none", width: drawerWidth, boxSizing: 'border-box'},
+                    [`& .MuiDrawer-paper`]: {
+                        border: "none",
+                        width: drawerWidth,
+                        boxSizing: 'border-box'
+                    },
                 }}>
             <Toolbar variant="dense"/>
             <Box sx={{

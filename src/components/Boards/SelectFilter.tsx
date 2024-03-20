@@ -1,7 +1,7 @@
 import React from 'react';
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import {ChangeTodoFilterAC, BoardFilterValues} from "../../../Store/Reducers/todolists-reducer";
-import {useAppDispatch} from "../../../Store/Store";
+import {ChangeTodoFilterAC, BoardFilterValues} from "../../Store/Reducers/todolists-reducer";
+import {useAppDispatch} from "../../Store/Store";
 
 type SelectFilterProps = {
     todolistId:string

@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useState} from 'react';
-import {TaskStatuses, TaskType} from "../../../api/tasks-api";
-import {EditableSpan} from "../../EditableSpan";
+import {TaskStatuses, TaskType} from "../../api/tasks-api";
+import {EditableSpan} from "../EditableSpan";
 import {Checkbox, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
-import {deleteTaskTC, updateTaskTC} from "../../../Store/Reducers/tasks-reducer";
-import {useAppDispatch} from "../../../Store/Store";
+import {deleteTaskTC, updateTaskTC} from "../../Store/Reducers/tasks-reducer";
+import {useAppDispatch} from "../../Store/Store";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {TaskInfo} from "./TaskInfo";

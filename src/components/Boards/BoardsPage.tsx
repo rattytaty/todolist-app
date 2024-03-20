@@ -1,10 +1,10 @@
 import React, {useCallback, useEffect, useState} from "react";
 
-import {BoardMainType} from "../../../api/boards-api";
-import {AddItemForm} from "../../AddItemForm";
+import {BoardMainType} from "../../api/boards-api";
+import {AddItemForm} from "../AddItemForm";
 import {Board} from "./Board";
-import {useAppDispatch, useAppSelector} from "../../../Store/Store";
-import {createBoardTC, getAllBoardsTC} from "../../../Store/Reducers/todolists-reducer";
+import {useAppDispatch, useAppSelector} from "../../Store/Store";
+import {createBoardTC, getAllBoardsTC} from "../../Store/Reducers/todolists-reducer";
 import {
     Breadcrumbs,
     Button,

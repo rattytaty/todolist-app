@@ -1,11 +1,11 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {TaskStatuses, TaskType} from "../../../api/tasks-api";
+import {TaskStatuses, TaskType} from "../../api/tasks-api";
 import {Box, Button, Card, CardActions, CardContent, CardHeader, IconButton, Modal, Typography} from "@mui/material";
 import {Cancel, Delete, Favorite} from "@mui/icons-material";
-import {RequestStatusType} from "../../../Store/Reducers/app-reducer";
-import {changeBoardTitleTC, deleteTodoTC, BoardFilterValues} from "../../../Store/Reducers/todolists-reducer";
-import {useAppDispatch, useAppSelector} from "../../../Store/Store";
-import {createTaskTC, getTasksTC,} from "../../../Store/Reducers/tasks-reducer";
+import {RequestStatusType} from "../../Store/Reducers/app-reducer";
+import {changeBoardTitleTC, deleteTodoTC, BoardFilterValues} from "../../Store/Reducers/todolists-reducer";
+import {useAppDispatch, useAppSelector} from "../../Store/Store";
+import {createTaskTC, getTasksTC,} from "../../Store/Reducers/tasks-reducer";
 import {Task} from "./Task";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
