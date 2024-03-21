@@ -1,6 +1,6 @@
 import React from 'react';
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import {ChangeTodoFilterAC, BoardFilterValues} from "../../Store/Reducers/todolists-reducer";
+import {ChangeTodoFilterAC, BoardFilterValues} from "../../Store/Reducers/boards-reducer";
 import {useAppDispatch} from "../../Store/Store";
 
 type SelectFilterProps = {

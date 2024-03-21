@@ -1,4 +1,4 @@
-import {CreateTodoAC, DeleteTodoAC, SetTodolistsAC} from "./todolists-reducer";
+import {CreateTodoAC, DeleteTodoAC, SetTodolistsAC} from "./boards-reducer";
 import {tasksApi, TaskType, TaskTypeForUpdate} from "../../api/tasks-api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../Store";

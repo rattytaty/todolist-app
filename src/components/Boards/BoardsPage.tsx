@@ -4,7 +4,7 @@ import {BoardMainType} from "../../api/boards-api";
 import {AddItemForm} from "../AddItemForm";
 import {Board} from "./Board";
 import {useAppDispatch, useAppSelector} from "../../Store/Store";
-import {createBoardTC, getAllBoardsTC} from "../../Store/Reducers/todolists-reducer";
+import {createBoardTC, getAllBoardsTC} from "../../Store/Reducers/boards-reducer";
 import {
     Breadcrumbs,
     Button,
@@ -70,11 +70,8 @@ export const BoardsPage: React.FC = () => {
                     Home</Link>
                 <Typography sx={{color: "#f3f3f3"}}
                             variant="h6">
-                    All boards
-                </Typography>
-
+                    All boards</Typography>
             </Breadcrumbs>
-
             <Box sx={{
                 alignSelf: " flex-end",
                 m: 2,
@@ -100,10 +97,8 @@ export const BoardsPage: React.FC = () => {
                     ? <ExpandLess sx={{color: "#f3f3f3"}}/>
                     : <ExpandMore sx={{color: "#f3f3f3"}}/>}
                 onClick={() => setIsFavouriteOpen(!isFavouriteOpen)}>Favorite boards</Button>
-
         <Collapse in={isFavouriteOpen}
                   timeout="auto">
-
             <Stack sx={{
                 width: "100%",
                 overflowX: "auto",
@@ -113,7 +108,6 @@ export const BoardsPage: React.FC = () => {
                    direction="row"
                    spacing={2}>
                 <Card sx={{
-
                     minWidth: "160px",
                     height: "min-content",
                     background: "#2a3142",
@@ -153,8 +147,7 @@ export const BoardsPage: React.FC = () => {
         }}>
             <AddItemForm addItem={addTodolist}/>
             <FormControl sx={{width: "110px"}}
-                         variant="standard"
-            >
+                         variant="standard">
                 <InputLabel sx={{color: "#626ed4"}}>Sort by</InputLabel>
                 <Select sx={{
                     color: "#fafafa",
@@ -197,7 +190,7 @@ export const BoardsPage: React.FC = () => {
                              item
                              key={board.id}>
                     <Board title={board.title}
-                           todolistId={board.id}
+                           boardId={board.id}
                            filter={board.filter}
                            entityStatus={board.entityStatus}/>
                 </Grid>

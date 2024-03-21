@@ -1,46 +1,60 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {TaskStatuses, TaskType} from "../../api/tasks-api";
-import {Box, Button, Card, CardActions, CardContent, CardHeader, IconButton, Modal, Typography} from "@mui/material";
+import {Box, Button, Card, CardActions, CardContent, CardHeader, Collapse, IconButton, Modal, Typography} from "@mui/material";
 import {Cancel, Delete, Favorite} from "@mui/icons-material";
 import {RequestStatusType} from "../../Store/Reducers/app-reducer";
-import {changeBoardTitleTC, deleteTodoTC, BoardFilterValues} from "../../Store/Reducers/todolists-reducer";
+import {changeBoardTitleTC, deleteBoardTC, BoardFilterValues} from "../../Store/Reducers/boards-reducer";
 import {useAppDispatch, useAppSelector} from "../../Store/Store";
 import {createTaskTC, getTasksTC,} from "../../Store/Reducers/tasks-reducer";
 import {Task} from "./Task";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import { AddItemForm } from "../AddItemForm";
+import {useNavigate} from "react-router-dom";
 
 type TodolistProps = {
     title: string
     filter: BoardFilterValues
     entityStatus: RequestStatusType
-    todolistId: string
+    boardId: string
 }
 
+const convertDate = (dateToConvert: string) => {
+    const [date, time] = dateToConvert.split("T")
+    const [year, month, day] = date.split("-")
+    const shortDate = `${day}.${month}`
+    const longDate = `${day}.${month}.${year}`
+    const convertedTime = time.slice(0, 5)
+    return {shortDate, longDate, convertedTime}
+}
 export const Board: React.FC<TodolistProps> = React.memo(({
                                                               title,
                                                               filter,
                                                               entityStatus,
-                                                              todolistId,
-                                                              ...restProps
+                                                               boardId
                                                           }) => {
 
-    const dispatch = useAppDispatch()
-    const tasks = useAppSelector(state => state.tasks[todolistId])
-    useEffect(() => {
-        dispatch(getTasksTC(todolistId))
-    }, [todolistId, dispatch])
+    const board = useAppSelector(state => state.todolistInfo.find(board=>board.id===boardId))
 
+    const {shortDate, longDate, convertedTime} = convertDate(board!.addedDate)
+
+    const navigate = useNavigate()
+
+    const dispatch = useAppDispatch()
+    const tasks = useAppSelector(state => state.tasks[boardId])
+    useEffect(() => {
+        dispatch(getTasksTC(boardId))
+    }, [boardId, dispatch])
     const changeBoardTitle = useCallback((newBoardTitle: string) => {
-        dispatch(changeBoardTitleTC(newBoardTitle, todolistId))
-    }, [dispatch, todolistId]);
+        dispatch(changeBoardTitleTC(newBoardTitle, boardId))
+    }, [dispatch, boardId]);
     const addTask = useCallback((newTaskName: string) => {
-        dispatch(createTaskTC(todolistId, newTaskName))
-    }, [dispatch, todolistId]);
+        dispatch(createTaskTC(boardId, newTaskName))
+    }, [dispatch, boardId]);
 
     const taskListItem = (task: TaskType) => {
         return <Task task={task}
-                     todolistId={todolistId}
+                     todolistId={boardId}
                      key={task.id}/>
     }
 
@@ -56,15 +70,19 @@ export const Board: React.FC<TodolistProps> = React.memo(({
 
     const [isDetailsOpen, setIsDetailsOpen] = useState(false)
 
-    const [deleteModalOpen, setDeleteModalOpen] = React.useState(false);
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const deleteBoard = () => {
-        dispatch(deleteTodoTC(todolistId))
+        dispatch(deleteBoardTC(boardId))
         setDeleteModalOpen(false)
     }
 
-    return <Card sx={{
+    return <Card onClick={()=>navigate("/settings")} sx={{
         background: "#2a3142",
         borderRadius: 1,
+        "&:hover": {
+           cursor:"pointer",
+            boxShadow: 14,
+        }
     }}>
         <CardHeader title={<Typography sx={{color: "#f3f3f3"}}
                                        variant="h5"
@@ -79,9 +97,9 @@ export const Board: React.FC<TodolistProps> = React.memo(({
                 justifyContent: "space-between"
             }}>
                 <Typography sx={{color: "#bfc1c7"}}>
-                    {tasks.length} tasks</Typography>
+                    {tasks.length?`${tasks.length} tasks`:"No tasks yet."}</Typography>
 
-                <IconButton onClick={() => setIsDetailsOpen(!isDetailsOpen)}
+                {tasks.length?<IconButton onClick={() => setIsDetailsOpen(!isDetailsOpen)}
                             sx={{
                                 mr: -1.5,
                                 color: "#626ed4",
@@ -92,19 +110,26 @@ export const Board: React.FC<TodolistProps> = React.memo(({
                     {isDetailsOpen
                         ? <ExpandLess/>
                         : <ExpandMore/>}
-                </IconButton>
+                </IconButton>:undefined}
             </Box>
+
+            <Collapse in={isDetailsOpen}
+                      timeout="auto">
+                {tasks.map(task=><Task task={task}
+                                       todolistId={boardId}
+                                       key={task.id}/>)}
+
+            </Collapse>
 
 
             <Typography sx={{
                 color: "#bfc1c7"
-            }}>09.02.2021</Typography>
+            }}>{longDate}</Typography>
         </CardContent>
 
 
         {/*<AddItemForm addItem={addTask}
                      disabled={entityStatus === 'loading'}/>
-
         <SelectFilter todolistId={todolistId} filter={filter}/>*/}
 
         <CardActions sx={{mt: -2,

@@ -1,12 +1,11 @@
-import React, {useCallback, useState, MouseEvent} from 'react';
+import React, {MouseEvent, useCallback, useState} from 'react';
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import {Checklist, Logout} from "@mui/icons-material";
+import {Checklist, ExpandLess as LessIcon, ExpandMore as MoreIcon, Logout} from "@mui/icons-material";
 import {Avatar, Button, Popover, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
+
 import AppBar from "@mui/material/AppBar";
 import {useAppDispatch} from "../../Store/Store";
 import {logOutTC} from "../../Store/Reducers/auth-reducer";
@@ -100,8 +99,8 @@ export const Header = (props: HeaderProps) => {
                                 }
                             }}>
                     {openPopover
-                        ? <ExpandLess/>
-                        : <ExpandMore/>}
+                        ? <LessIcon/>
+                        : <MoreIcon/>}
                 </IconButton>
                 <Popover id={id}
                          open={openPopover}

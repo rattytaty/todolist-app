@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import {ResponseType} from "./tasks-api";
-import {BoardFilterValues} from "../Store/Reducers/todolists-reducer";
+import {BoardFilterValues} from "../Store/Reducers/boards-reducer";
 import {RequestStatusType} from "../Store/Reducers/app-reducer";
 
 

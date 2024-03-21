@@ -19,7 +19,7 @@ export const getAllBoardsTC = () => (dispatch: Dispatch) => {
             handleServerNetworkError(error, dispatch)
         })
 }
-export const deleteTodoTC = (todolistId: string) => (dispatch: Dispatch) => {
+export const deleteBoardTC = (todolistId: string) => (dispatch: Dispatch) => {
     dispatch(setLoadingStatusAC({loadingStatus: "loading"}))
     dispatch(ChangeTodoEntityStatusAC({todolistId, entityStatus: "loading"}))
     boardsApi.deleteBoard(todolistId)
@@ -96,7 +96,7 @@ const slice = createSlice({
         }
     }
 })
-export const todolistsReducer = slice.reducer
+export const boardsReducer = slice.reducer
 export const {
     DeleteTodoAC,
     CreateTodoAC,

@@ -1,6 +1,6 @@
 import {AnyAction, combineReducers} from "redux";
 import {tasksReducer} from "./Reducers/tasks-reducer";
-import {todolistsReducer} from "./Reducers/todolists-reducer";
+import {boardsReducer} from "./Reducers/boards-reducer";
 import thunkMiddleware, {ThunkDispatch} from "redux-thunk"
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {appReducer} from "./Reducers/app-reducer";
@@ -16,7 +16,7 @@ export const useAppSelector:TypedUseSelectorHook<AppRootStateType> = useSelector
 
 const rootReducer = combineReducers({
     tasks:tasksReducer,
-    todolistInfo: todolistsReducer,
+    todolistInfo: boardsReducer,
     app:appReducer,
     auth:authReducer,
 })

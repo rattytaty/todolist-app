@@ -98,7 +98,8 @@ export const SideBar = ({setDrawerIsClosing, setIsDrawerOpen, isDrawerOpen}: Sid
     const drawer = (
         <ListStyled subheader={<ListSubheader>Menu:</ListSubheader>}>
             {menuItems.map(item =>
-                <ListItemButton onClick={() => navigate(item.route)}>
+                <ListItemButton key={item.name}
+                                onClick={() => navigate(item.route)}>
                     <ListItemIcon>
                         {item.icon}
                     </ListItemIcon>

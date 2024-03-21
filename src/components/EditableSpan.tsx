@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import {TextField} from "@mui/material";
+import {TextField, Typography} from "@mui/material";
 
 type EditableSpanProps ={
     title: string
@@ -27,6 +27,6 @@ export const EditableSpan = React.memo((props:EditableSpanProps) =>{
                          value={title}
                          onChange={inputOnChange}
                          size={"small"}/>
-            :<span onDoubleClick={onEditMode}>{title}</span>
+            :<Typography sx={{color:"#f3f3f3"}} onDoubleClick={onEditMode}>{title}</Typography>
     );
 });
