@@ -25,7 +25,7 @@ export const Task: React.FC<TaskProps> = React.memo(({task, todolistId}) => {
 
     return <Box sx={{display: "flex",
         alignItems: "center"}}>
-        <Checkbox checked={task.status === TaskStatuses.Completed}
+        <Checkbox onClick={event=>event.stopPropagation()} checked={task.status === TaskStatuses.Completed}
                   onChange={changeTaskStatus}
                   sx={{color: "#626ed4",
                       "& .MuiSvgIcon-root": {fill: "#626ed4"},

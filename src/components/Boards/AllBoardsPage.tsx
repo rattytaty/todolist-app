@@ -6,7 +6,6 @@ import {Board} from "./Board";
 import {useAppDispatch, useAppSelector} from "../../Store/Store";
 import {createBoardTC, getAllBoardsTC} from "../../Store/Reducers/boards-reducer";
 import {
-    Breadcrumbs,
     Button,
     Card,
     CardActions,
@@ -14,22 +13,21 @@ import {
     FormControl,
     IconButton,
     InputLabel,
-    Link,
     MenuItem,
     Select,
     Stack,
     Typography
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import {EditCalendar, Favorite} from "@mui/icons-material";
+import {Favorite} from "@mui/icons-material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import {Link as RouterLink,} from 'react-router-dom';
-import Grid from "@mui/material/Grid";
 
-export const BoardsPage: React.FC = () => {
+import Grid from "@mui/material/Grid";
+import {HeaderBackground} from "./HeaderBackground";
+
+export const AllBoardsPage: React.FC = () => {
 
     const todolistInfo = useAppSelector<Array<BoardMainType>>(state => state.todolistInfo)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
@@ -50,40 +48,7 @@ export const BoardsPage: React.FC = () => {
     const [isFavouriteOpen, setIsFavouriteOpen] = useState(false)
 
     return <>
-        <Box sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            backgroundImage: "linear-gradient(112.1deg, #2b2c4f 11.4%, #354269 70.2%)",
-            height: "130px",
-        }}>
-            <Breadcrumbs separator={<NavigateNextIcon
-                fontSize="small"/>}
-                         sx={{m: 2}}>
-                <Link component={RouterLink}
-                      to="/"
-                      variant="h6"
-                      underline="hover"
-                      sx={{
-                          color: "#bfc1c7",
-                          "&:hover": {color: "#626ed4"}
-                      }}>
-                    Home</Link>
-                <Typography sx={{color: "#f3f3f3"}}
-                            variant="h6">
-                    All boards</Typography>
-            </Breadcrumbs>
-            <Box sx={{
-                alignSelf: " flex-end",
-                m: 2,
-                color: "#fafafa",
-                display: "flex",
-                alignItems: "center",
-                gap: 0.5
-            }}>
-                <EditCalendar fontSize="small"/>
-                <Typography>09.12.2011</Typography>
-            </Box>
-        </Box>
+        <HeaderBackground/>
         <Button variant="contained"
                 size="small"
                 sx={{

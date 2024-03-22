@@ -1,8 +1,9 @@
 import React from "react";
 import {Layout} from "./components/appLayout/Layout";
 import {createBrowserRouter} from "react-router-dom";
-import {BoardsPage} from "./components/Boards/BoardsPage";
+import {AllBoardsPage} from "./components/Boards/AllBoardsPage";
 import {Login} from "./components/login/Login";
+import {BoardPage} from "./components/Boards/BoardPage";
 
 export const router = createBrowserRouter([{
     path: "/",
@@ -11,9 +12,18 @@ export const router = createBrowserRouter([{
     children: [
         {
             index: true,
-            element: <BoardsPage/>
+            element: <AllBoardsPage/>
         },
-        {path:"settings", element:<>settings</>},{path:"calendar", element:<>calendar</>}
+        {path: "board/:boardId",
+            element: <BoardPage/>},
+        {
+            path: "settings",
+            element: <>settings</>
+        },
+        {
+            path: "calendar",
+            element: <>calendar</>
+        }
     ]
 },
     {
