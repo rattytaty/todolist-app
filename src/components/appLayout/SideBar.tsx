@@ -183,7 +183,7 @@ export const SideBar = ({setDrawerIsClosing, setIsDrawerOpen, isDrawerOpen}: Sid
             <Toolbar variant="dense"/>
             <Box sx={{
                 overflow: 'auto',
-                backgroundColor: "#2a3142",
+                background: "#2a3142",
                 color: "#f3f3f3",
                 height: "100%"
             }}>

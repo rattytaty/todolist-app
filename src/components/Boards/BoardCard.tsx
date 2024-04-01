@@ -1,27 +1,12 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {MouseEvent, useCallback, useEffect, useState} from "react";
 import {TaskStatuses, TaskType} from "../../api/tasks-api";
-import {
-    Box,
-    Button,
-    Card,
-    CardActionArea,
-    CardActions,
-    CardContent,
-    CardHeader,
-    Collapse,
-    IconButton,
-    Modal,
-    Typography
-} from "@mui/material";
+import {Box, Button, Card, CardActions, CardContent, CardHeader, IconButton, Modal, Typography} from "@mui/material";
 import {Cancel, Delete, Favorite} from "@mui/icons-material";
 import {RequestStatusType} from "../../Store/Reducers/app-reducer";
-import {changeBoardTitleTC, deleteBoardTC, BoardFilterValues} from "../../Store/Reducers/boards-reducer";
+import {BoardFilterValues, changeBoardTitleTC, deleteBoardTC} from "../../Store/Reducers/boards-reducer";
 import {useAppDispatch, useAppSelector} from "../../Store/Store";
 import {createTaskTC, getTasksTC,} from "../../Store/Reducers/tasks-reducer";
 import {Task} from "./Task";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import {AddItemForm} from "../AddItemForm";
 import {useNavigate} from "react-router-dom";
 import {convertDate} from "../../Store/utils/converteDate";
 
@@ -33,12 +18,12 @@ type TodolistProps = {
 }
 
 
-export const Board: React.FC<TodolistProps> = React.memo(({
-                                                              title,
-                                                              filter,
-                                                              entityStatus,
-                                                              boardId
-                                                          }) => {
+export const BoardCard: React.FC<TodolistProps> = React.memo(({
+                                                                  title,
+                                                                  filter,
+                                                                  entityStatus,
+                                                                  boardId
+                                                              }) => {
 
     const board = useAppSelector(state => state.todolistInfo.find(board => board.id === boardId))
 
@@ -72,17 +57,28 @@ export const Board: React.FC<TodolistProps> = React.memo(({
             else if (filter === "Draft") return status === TaskStatuses.Draft;
             return true;
         })
-    const tasksList = tasksForTodolist && tasksForTodolist.length ? tasksForTodolist.map(taskListItem) : "Todolist is empty :("
-
-    const [isDetailsOpen, setIsDetailsOpen] = useState(false)
 
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const deleteBoard = () => {
         dispatch(deleteBoardTC(boardId))
         setDeleteModalOpen(false)
     }
+    const openDeleteBoardModal = (event: MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation()
+        setDeleteModalOpen(true)
+    }
 
-    return <Card onClick={() => navigate("board/1")} sx={{
+    const deleteModalOnClose = (event: MouseEvent) => {
+        event.stopPropagation()
+        setDeleteModalOpen(false)
+    }
+
+    const cancelDeleteBoardModal = (event: MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation()
+        setDeleteModalOpen(false)
+    }
+
+    return <Card onClick={() => navigate(`board/${boardId}`)} sx={{
         background: "#2a3142",
         borderRadius: 1,
         "&:hover": {
@@ -95,7 +91,7 @@ export const Board: React.FC<TodolistProps> = React.memo(({
         <CardHeader title={<Typography sx={{color: "#f3f3f3"}}
                                        variant="h5">
             {title}</Typography>}/>
-        
+
         <CardContent sx={{mt: -2,}}>
             <Box sx={{
                 display: "flex",
@@ -103,18 +99,15 @@ export const Board: React.FC<TodolistProps> = React.memo(({
                 justifyContent: "space-between"
             }}>
                 <Typography sx={{color: "#bfc1c7"}}>
-                    {tasks.length ? `${tasks.length} tasks:` : "No tasks yet."}</Typography>
-
+                    {tasks.length ? `${tasks.length} tasks:`
+                        : "No tasks yet."}</Typography>
             </Box>
-
-            {tasks.map(task => <Task task={task}
-                                     todolistId={boardId}
-                                     key={task.id}/>)}
-
-
-            <Typography sx={{
-                color: "#bfc1c7"
-            }}>{longDate}</Typography>
+            <Box onClick={event => event.stopPropagation()}>
+                {tasks.map(task => <Task task={task}
+                                         todolistId={boardId}
+                                         key={task.id}/>)}
+            </Box>
+            <Typography sx={{color: "#bfc1c7"}}>{longDate}</Typography>
         </CardContent>
 
 
@@ -127,7 +120,6 @@ export const Board: React.FC<TodolistProps> = React.memo(({
             display: "flex",
             justifyContent: "space-between"
         }}>
-
             <IconButton sx={{
                 ml: -0.5,
                 color: "#626ed4",
@@ -135,7 +127,7 @@ export const Board: React.FC<TodolistProps> = React.memo(({
                     background: "#242a38"
                 }
             }}
-                        onClick={() => setDeleteModalOpen(true)}
+                        onClick={openDeleteBoardModal}
                         disabled={entityStatus === 'loading'}>
                 <Delete/>
             </IconButton>
@@ -146,13 +138,14 @@ export const Board: React.FC<TodolistProps> = React.memo(({
                 "&:hover": {
                     background: "#242a38"
                 }
-            }} disabled={entityStatus === 'loading'}>
+            }}
+                        onClick={event => event.stopPropagation()}
+                        disabled={entityStatus === 'loading'}>
                 <Favorite/>
             </IconButton>
 
             <Modal open={deleteModalOpen}
-                   onClose={() => setDeleteModalOpen(false)}
-            >
+                   onClose={deleteModalOnClose}>
                 <Box sx={{
                     position: "absolute",
                     top: '50%',
@@ -193,7 +186,7 @@ export const Board: React.FC<TodolistProps> = React.memo(({
                                     "&:hover": {background: "#3e49b2"}
                                 }}
                                 endIcon={<Cancel/>}
-                                onClick={() => setDeleteModalOpen(false)}>Cancel</Button>
+                                onClick={cancelDeleteBoardModal}>Cancel</Button>
                     </Box>
                 </Box>
             </Modal>

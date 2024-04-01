@@ -1,4 +1,4 @@
-Board app using:
+BoardCard app using:
 
 - React
 - Typescript

@@ -1,6 +1,6 @@
 import React from 'react';
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import {ChangeTodoFilterAC, BoardFilterValues} from "../../Store/Reducers/boards-reducer";
+import {ChangeBoardFilterAC, BoardFilterValues} from "../../Store/Reducers/boards-reducer";
 import {useAppDispatch} from "../../Store/Store";
 
 type SelectFilterProps = {
@@ -12,7 +12,7 @@ export const SelectFilter: React.FC<SelectFilterProps> = React.memo(({todolistId
 
     const dispatch = useAppDispatch()
     const changeTodoFilter = (filterValue: BoardFilterValues) => {
-        dispatch(ChangeTodoFilterAC({filterValue, todolistId}))
+        dispatch(ChangeBoardFilterAC({filterValue, todolistId}))
     }
     return (
         <div style={{paddingTop: '10px'}}>

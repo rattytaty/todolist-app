@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 
 import {BoardMainType} from "../../api/boards-api";
 import {AddItemForm} from "../AddItemForm";
-import {Board} from "./Board";
+import {BoardCard} from "./BoardCard";
 import {useAppDispatch, useAppSelector} from "../../Store/Store";
 import {createBoardTC, getAllBoardsTC} from "../../Store/Reducers/boards-reducer";
 import {
@@ -97,8 +97,11 @@ export const AllBoardsPage: React.FC = () => {
                             ml: 1,
                             color: "#bfc1c7"
                         }}>09.02.2021</Typography>
-                        <IconButton sx={{marginLeft: "auto"}}>
-                            <Favorite/>
+                        <IconButton sx={{marginLeft: "auto",
+                            "&:hover": {
+                                background: "#242a38"
+                            }}}>
+                            <Favorite sx={{color:"#626ed4", }}/>
                         </IconButton>
                     </CardActions>
                 </Card>
@@ -111,6 +114,7 @@ export const AllBoardsPage: React.FC = () => {
             m: 2,
         }}>
             <AddItemForm addItem={addTodolist}/>
+
             <FormControl sx={{width: "110px"}}
                          variant="standard">
                 <InputLabel sx={{color: "#626ed4"}}>Sort by</InputLabel>
@@ -128,6 +132,7 @@ export const AllBoardsPage: React.FC = () => {
                     <MenuItem value="Name">Name</MenuItem>
                 </Select>
             </FormControl>
+
         </Box>
         <Typography sx={{
             color: "#f3f3f3",
@@ -154,13 +159,12 @@ export const AllBoardsPage: React.FC = () => {
                              lg={1}
                              item
                              key={board.id}>
-                    <Board title={board.title}
-                           boardId={board.id}
-                           filter={board.filter}
-                           entityStatus={board.entityStatus}/>
+                    <BoardCard title={board.title}
+                               boardId={board.id}
+                               filter={board.filter}
+                               entityStatus={board.entityStatus}/>
                 </Grid>
             })}
         </Grid>
-
     </>
 }

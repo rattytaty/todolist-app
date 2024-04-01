@@ -1,4 +1,4 @@
-import {CreateTodoAC, DeleteTodoAC, SetTodolistsAC} from "./boards-reducer";
+import {CreateBoardAC, DeleteBoardAC, SetAllBoardsAC} from "./boards-reducer";
 import {tasksApi, TaskType, TaskTypeForUpdate} from "../../api/tasks-api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../Store";
@@ -17,13 +17,11 @@ export type TaskOptionsForUpdate = {
     deadline?: string
 }
 
-
 //thunk creators
 export const getTasksTC = (todolistId: string) => (dispatch: Dispatch
 ) => {
     tasksApi.getTasks(todolistId)
         .then(response => {
-
             dispatch(setTasksAC({tasks:response.data.items, todolistId}))
         })
         .catch(error => {
@@ -120,13 +118,13 @@ const slice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(SetTodolistsAC, (state, action) => {
+        builder.addCase(SetAllBoardsAC, (state, action) => {
             action.payload.todolists.forEach(todolist => state[todolist.id] = [])
         })
-        builder.addCase(DeleteTodoAC, (state, action) => {
+        builder.addCase(DeleteBoardAC, (state, action) => {
             delete state[action.payload.todolistId]
         })
-        builder.addCase(CreateTodoAC, (state, action) => {
+        builder.addCase(CreateBoardAC, (state, action) => {
             state[action.payload.newTodolist.id] = []
         })
     }

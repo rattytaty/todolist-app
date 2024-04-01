@@ -12,22 +12,28 @@ export const HeaderBackground = () => {
         backgroundImage: "linear-gradient(112.1deg, #2b2c4f 11.4%, #354269 70.2%)",
         height: "130px",
     }}>
-        <Breadcrumbs separator={<NavigateNextIcon
-            fontSize="small"/>}
-                     sx={{m: 2}}>
-            <Link component={RouterLink}
-                  to="/"
-                  variant="h6"
-                  underline="hover"
-                  sx={{
-                      color: "#bfc1c7",
-                      "&:hover": {color: "#626ed4"}
-                  }}>
-                Home</Link>
-            <Typography sx={{color: "#f3f3f3"}}
-                        variant="h6">
-                All boards</Typography>
-        </Breadcrumbs>
+        <Box sx={{display:"flex", flexDirection:"column", justifyContent:"space-between"}}>
+            <Breadcrumbs separator={<NavigateNextIcon
+                fontSize="small"/>}
+                         sx={{m: 2}}>
+                <Link component={RouterLink}
+                      to="/"
+                      variant="h6"
+                      underline="hover"
+                      sx={{
+                          color: "#bfc1c7",
+                          "&:hover": {color: "#626ed4"}
+                      }}>
+                    Home</Link>
+                <Typography sx={{color: "#f3f3f3"}}
+                            variant="h6">
+                    All boards</Typography>
+            </Breadcrumbs>
+            <Typography sx={{color: "#f3f3f3", m:2}}
+                        variant="h4">Project 1</Typography>
+
+        </Box>
+
         <Box sx={{
             alignSelf: " flex-end",
             m: 2,
