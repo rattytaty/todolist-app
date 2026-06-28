@@ -1,11 +1,11 @@
 {
   "rewrites": [
     {
-      "source": "auth/me",
+      "source": "https://todolist-8z6sfbyt7-rattytatys-projects.vercel.app/me",
       "destination": "https://social-network.samuraijs.com/api/1.1/auth/me"
     },
     {
-      "source": "auth/login",
+      "source": "https://todolist-8z6sfbyt7-rattytatys-projects.vercel.app/login",
       "destination": "https://social-network.samuraijs.com/api/1.1/auth/login"
     }
   ]
