@@ -52,7 +52,6 @@ export const AddItemForm = React.memo((props: AddItemFormProps) => {
                    ref={inputRef}
                    onBlur={onBlurHandler}
                    placeholder={error ? "Title is required!" : (props.placeholderText ? props.placeholderText : "Title")}/>
-
         <Button variant="contained"
                 size="small"
                 sx={{
@@ -63,7 +62,6 @@ export const AddItemForm = React.memo((props: AddItemFormProps) => {
                 onClick={addNewTask}
                 disabled={props.disabled}>
             Add</Button>
-
     </Box>
 });
 

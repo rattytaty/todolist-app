@@ -78,21 +78,22 @@ export const BoardCard: React.FC<TodolistProps> = React.memo(({
         setDeleteModalOpen(false)
     }
 
-    return <Card onClick={() => navigate(`board/${boardId}`)} sx={{
-        background: "#2a3142",
-        borderRadius: 1,
-        "&:hover": {
-            boxShadow: 14,
-            outline: "1px solid #626ed4",
-            cursor: "pointer"
-        }
-    }}>
+    return <Card onClick={() => navigate(`board/${boardId}`)}
+                 sx={{
+                     background: "#2a3142",
+                     borderRadius: 1,
+                     "&:hover": {
+                         boxShadow: 14,
+                         outline: "1px solid #626ed4",
+                         cursor: "pointer"
+                     }
+                 }}>
 
         <CardHeader title={<Typography sx={{color: "#f3f3f3"}}
                                        variant="h5">
             {title}</Typography>}/>
 
-        <CardContent sx={{mt: -2,}}>
+        <CardContent sx={{mt: -2}}>
             <Box sx={{
                 display: "flex",
                 alignItems: "center",

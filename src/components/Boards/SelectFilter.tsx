@@ -16,13 +16,12 @@ export const SelectFilter: React.FC<SelectFilterProps> = React.memo(({todolistId
     }
     return (
         <div style={{paddingTop: '10px'}}>
-            <FormControl size={"small"} color={"primary"}
+            <FormControl size="small"
+                         color="primary"
                          variant="filled"
                          fullWidth>
-                <InputLabel id="demo-simple-select-filled-label">Sort Tasks:
-                </InputLabel>
-                <Select
-                    labelId="demo-simple-select-filled-label"
+                <InputLabel id="demo-simple-select-filled-label">Sort Tasks:</InputLabel>
+                <Select labelId="demo-simple-select-filled-label"
                     id="demo-simple-select-filled"
                     value={filter}>
                     <MenuItem onClick={()=>changeTodoFilter("All")} value={"All"}>All</MenuItem>
