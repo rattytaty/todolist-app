@@ -1,8 +1,12 @@
 {
   "rewrites": [
     {
-      "source": "/auth",
-      "destination": "https://social-network.samuraijs.com/api/1.1/auth"
+      "source": "/auth/me",
+      "destination": "https://social-network.samuraijs.com/api/1.1/auth/me"
+    },
+    {
+      "source": "/auth/login",
+      "destination": "https://social-network.samuraijs.com/api/1.1/auth/login"
     }
   ]
 }
