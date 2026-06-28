@@ -1,12 +1,12 @@
 {
   "rewrites": [
     {
-      "source": "https://todolist-app-tan.vercel.app/me",
-      "destination": "https://social-network.samuraijs.com/api/1.1/auth/me"
-    },
-    {
-      "source": "https://todolist-app-tan.vercel.app/login",
-      "destination": "https://social-network.samuraijs.com/api/1.1/auth/login"
+      "rewrites": [
+        {
+          "source": "/api/:path*",
+          "destination": "https://social-network.samuraijs.com/api/1.1/:path*"
+        }
+      ]
     }
   ]
 }
